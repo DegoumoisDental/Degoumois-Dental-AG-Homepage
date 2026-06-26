@@ -8,7 +8,7 @@ export default config({
         kind: "github",
         repo: {
           owner: "DegoumoisDental",
-          name:  "website",
+          name:  "Degoumois-Dental-AG-Homepage",
         },
       }
     : { kind: "local" },
