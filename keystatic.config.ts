@@ -1,9 +1,18 @@
 import { config, collection, fields } from "@keystatic/core";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default config({
-  storage: {
-    kind: "local",
-  },
+  storage: isProduction
+    ? {
+        kind: "github",
+        repo: {
+          owner: "DegoumoisDental",
+          name:  "website",
+        },
+      }
+    : { kind: "local" },
+
   ui: {
     brand: {
       name: "Degoumois Dental AG",

@@ -17,11 +17,20 @@
       ]
     },
     {
-      "source": "/admin/(.*)",
+      "source": "/keystatic/:path*",
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline' https://unpkg.com; script-src 'self' 'unsafe-inline' https://unpkg.com https://identity.netlify.com; font-src 'self' data: https://unpkg.com; connect-src 'self' https://api.github.com https://unpkg.com; frame-src https://www.google.com"
+          "value": "default-src 'self'; img-src 'self' data: https: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://api.github.com https://github.com; frame-src https://github.com; form-action 'self' https://github.com"
+        }
+      ]
+    },
+    {
+      "source": "/api/keystatic/:path*",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; connect-src 'self' https://api.github.com https://github.com"
         }
       ]
     }
