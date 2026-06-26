@@ -1,0 +1,94 @@
+---
+import { site } from "../site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+  publishedTime?: string;
+}
+
+const {
+  title,
+  description = site.description,
+  image = "/img/og-default.svg",
+  type = "website",
+  noindex = false,
+  publishedTime,
+} = Astro.props;
+
+const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — Zahntechnik Solothurn`;
+const canonical = new URL(Astro.url.pathname, site.url).href.replace(/\/$/, "") || site.url;
+const ogImage = new URL(image, site.url).href;
+
+// Structured Data — LocalBusiness/Dentist (wichtig für lokale SEO & GEO)
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": ["Dentist", "MedicalBusiness", "LocalBusiness"],
+  "@id": `${site.url}/#organization`,
+  name: site.name,
+  legalName: site.legalName,
+  url: site.url,
+  description: site.description,
+  foundingDate: site.founded,
+  telephone: site.phone,
+  faxNumber: site.fax,
+  email: site.email,
+  logo: `${site.url}/img/logo-degoumois.svg`,
+  image: ogImage,
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.address.street,
+    postalCode: site.address.zip,
+    addressLocality: site.address.city,
+    addressCountry: site.address.countryCode,
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: site.address.lat,
+    longitude: site.address.lng,
+  },
+  areaServed: { "@type": "AdministrativeArea", name: "Solothurn / Schweiz" },
+  knowsAbout: [
+    "Zahntechnik", "CAD/CAM", "Implantatprothetik", "Vollkeramik",
+    "Zirkonoxid", "Modellguss", "Totalprothetik", "Dentallabor",
+  ],
+  openingHoursSpecification: site.openingHours.map(() => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "07:30",
+    closes: "17:00",
+  })),
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<meta name="author" content={site.name} />
+<meta name="geo.region" content="CH-SO" />
+<meta name="geo.placename" content="Solothurn" />
+<meta name="geo.position" content={`${site.address.lat};${site.address.lng}`} />
+<meta name="ICBM" content={`${site.address.lat}, ${site.address.lng}`} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content="de_CH" />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} is:inline />

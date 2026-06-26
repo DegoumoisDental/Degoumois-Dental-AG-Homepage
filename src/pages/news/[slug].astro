@@ -1,0 +1,99 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NewsCard from "../../components/NewsCard.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../site";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("news", ({ data }) => !data.draft);
+  return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<"news"> }
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { title, date, category, excerpt, cover, coverAlt } = entry.data;
+const dateStr = new Intl.DateTimeFormat("de-CH", { day: "2-digit", month: "long", year: "numeric" }).format(date);
+
+const related = (await getCollection("news", ({ data }) => !data.draft))
+  .filter((e) => e.slug !== entry.slug)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  headline: title,
+  datePublished: date.toISOString(),
+  description: excerpt,
+  articleSection: category,
+  author: { "@type": "Organization", name: site.name },
+  publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: `${site.url}/img/logo-degoumois.svg` } },
+};
+---
+
+<BaseLayout title={title} description={excerpt} type="article" publishedTime={date.toISOString()} image={cover}>
+  <article>
+    <header class="article-header">
+      <div class="ah-bg" aria-hidden="true"></div>
+      <div class="container ah-inner">
+        <a href="/news" class="back-link"><Icon name="arrow" class="flip" /> Alle News</a>
+        <span class="ah-badge">{category}</span>
+        <h1 data-reveal>{title}</h1>
+        <time datetime={date.toISOString()} class="ah-date" data-reveal data-delay="1">{dateStr}</time>
+      </div>
+    </header>
+
+    <div class="container article-wrap">
+      {cover && (
+        <figure class="article-cover" data-reveal>
+          <img src={cover} alt={coverAlt ?? title} />
+        </figure>
+      )}
+      <div class="prose" data-reveal data-delay="1">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="section related">
+      <div class="container">
+        <h2 class="related-title">Weitere News</h2>
+        <div class="grid related-grid">
+          {related.map((e) => <NewsCard entry={e} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} is:inline />
+</BaseLayout>
+
+<style>
+  .article-header { position: relative; color: #fff; padding-top: calc(var(--header-h) + clamp(2.5rem, 6vw, 4.5rem)); padding-bottom: clamp(2.5rem, 6vw, 4rem); overflow: hidden; }
+  .ah-bg { position: absolute; inset: 0; background: linear-gradient(155deg, #0c3a55, #0c6492 60%, #08293d); }
+  .ah-inner { position: relative; z-index: 1; max-width: 760px; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.4em; color: rgba(255,255,255,0.8); font-weight: 600; font-family: var(--font-display); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .back-link:hover { color: #fff; }
+  :global(.flip) { transform: rotate(180deg); width: 1em; }
+  .ah-badge { display: inline-block; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-family: var(--font-display); font-weight: 600; font-size: 0.78rem; padding: 0.35em 0.9em; border-radius: var(--radius-pill); margin-bottom: 1rem; }
+  .article-header h1 { color: #fff; }
+  .ah-date { display: block; margin-top: 1rem; color: rgba(255,255,255,0.75); font-weight: 600; }
+
+  .article-wrap { max-width: 760px; padding-block: clamp(2.5rem, 5vw, 4rem); }
+  .article-cover { margin-bottom: 2.5rem; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); }
+  .prose :global(p) { margin-bottom: 1.3rem; font-size: 1.12rem; line-height: 1.75; color: var(--ink-700); }
+  .prose :global(h2) { font-size: 1.6rem; margin: 2.5rem 0 1rem; }
+  .prose :global(h3) { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+  .prose :global(strong) { color: var(--accent-deep); }
+  .prose :global(em) { color: var(--ink-500); }
+  .prose :global(ul) { list-style: disc; padding-left: 1.4rem; margin-bottom: 1.3rem; }
+  .prose :global(a) { color: var(--brand-600); text-decoration: underline; }
+
+  .related { background: var(--surface-2); border-top: 1px solid var(--line); }
+  .related-title { font-size: 1.6rem; margin-bottom: 2rem; }
+  .related-grid { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { .related-grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,66 @@
+---
+import { partners } from "../site";
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+const {
+  title = "Partner & Systeme",
+  subtitle = "Wir arbeiten mit über 10 führenden Implantat- und Materialsystemen.",
+} = Astro.props;
+---
+
+<section class="partners section-tight">
+  <div class="container">
+    <div class="partners-head" data-reveal>
+      <p class="eyebrow">{title}</p>
+      <p class="partners-sub">{subtitle}</p>
+    </div>
+    <ul class="partner-grid" data-reveal data-delay="1">
+      {partners.map((p) => (
+        <li class="partner-item" title={p.name}>
+          <img src={p.file} alt={`${p.name} – Partner von Degoumois Dental AG`} loading="lazy" decoding="async" />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .partners { background: var(--surface-2); border-block: 1px solid var(--line); }
+  .partners-head {
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    text-align: center; margin-bottom: 2.5rem;
+  }
+  .partners-sub { color: var(--ink-500); max-width: 50ch; }
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    align-items: center;
+  }
+  .partner-item {
+    display: flex; align-items: center; justify-content: center;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.25rem 1rem;
+    min-height: 88px;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .partner-item img {
+    max-height: 46px; width: auto;
+    filter: grayscale(1) opacity(0.7);
+    transition: filter 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .partner-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--brand-200);
+  }
+  .partner-item:hover img { filter: grayscale(0) opacity(1); transform: scale(1.04); }
+
+  @media (max-width: 880px) { .partner-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 520px) { .partner-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>

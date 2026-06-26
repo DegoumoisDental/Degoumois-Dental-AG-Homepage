@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../site";
+const tel = site.phone.replace(/\s/g, "");
+const mapsQuery = encodeURIComponent(`${site.legalName}, ${site.address.street}, ${site.address.zip} ${site.address.city}`);
+---
+
+<BaseLayout
+  title="Kontakt & Anfahrt"
+  description="Kontaktieren Sie die Degoumois Dental AG in Solothurn – direkt gegenüber dem Westbahnhof. Telefon, E-Mail, Adresse und Anreise mit dem Zug."
+>
+  <PageHeader
+    eyebrow="Kontakt"
+    title="So erreichen Sie uns"
+    lead="Wir freuen uns auf Ihren Auftrag, Ihre Fragen und ein persönliches Kennenlernen – direkt gegenüber dem Bahnhof Solothurn Westbahnhof."
+  />
+
+  <section class="section">
+    <div class="container contact-grid">
+      <!-- Kontaktinfos -->
+      <div class="contact-info" data-reveal>
+        <ul class="info-list">
+          <li>
+            <span class="info-icon"><Icon name="pin" /></span>
+            <div>
+              <h3>Adresse</h3>
+              <p>{site.legalName}<br />{site.address.street}<br />{site.address.zip} {site.address.city}</p>
+            </div>
+          </li>
+          <li>
+            <span class="info-icon"><Icon name="phone" /></span>
+            <div>
+              <h3>Telefon</h3>
+              <p><a href={`tel:${tel}`}>{site.phoneDisplay}</a><br /><span class="muted">Fax {site.fax.replace("+41 ", "0").replace(/\s/g, " ")}</span></p>
+            </div>
+          </li>
+          <li>
+            <span class="info-icon"><Icon name="mail" /></span>
+            <div>
+              <h3>E-Mail</h3>
+              <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+            </div>
+          </li>
+          <li>
+            <span class="info-icon"><Icon name="clock" /></span>
+            <div>
+              <h3>Öffnungszeiten</h3>
+              {site.openingHours.map((o) => <p>{o.days}: {o.hours}</p>)}
+            </div>
+          </li>
+        </ul>
+
+        <div class="anreise card">
+          <h3>Anreise mit dem Zug</h3>
+          <p>Bis <strong>Solothurn Westbahnhof</strong>. Unser Labor befindet sich direkt gegenüber dem Bahnhof – ideal mit dem öffentlichen Verkehr erreichbar.</p>
+        </div>
+
+        <div class="contact-actions">
+          <a href={`tel:${tel}`} class="btn btn-primary"><Icon name="phone" /> Jetzt anrufen</a>
+          <a href={`mailto:${site.email}`} class="btn btn-ghost"><Icon name="mail" /> E-Mail schreiben</a>
+        </div>
+      </div>
+
+      <!-- Karte -->
+      <div class="contact-map" data-reveal data-delay="1">
+        <iframe
+          title="Standort Degoumois Dental AG auf der Karte"
+          src={`https://www.google.com/maps?q=${mapsQuery}&output=embed`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          width="100%"
+          height="100%"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+  .info-list { display: flex; flex-direction: column; gap: 1.75rem; }
+  .info-list li { display: flex; gap: 1.1rem; }
+  .info-icon { flex-shrink: 0; width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: var(--brand-600); background: linear-gradient(135deg, var(--brand-50), var(--brand-100)); font-size: 24px; }
+  .info-list h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .info-list a { color: var(--brand-600); font-weight: 600; }
+  .info-list a:hover { color: var(--brand-700); }
+  .muted { color: var(--ink-400); font-weight: 400; font-size: 0.9rem; }
+  .anreise { padding: 1.75rem; margin-top: 2rem; background: var(--surface-2); }
+  .anreise h3 { margin-bottom: 0.5rem; }
+  .anreise p { color: var(--ink-700); }
+  .contact-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+
+  .contact-map { position: sticky; top: calc(var(--header-h) + 1.5rem); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--line); aspect-ratio: 4/5; min-height: 480px; }
+  .contact-map iframe { border: 0; display: block; height: 100%; }
+
+  @media (max-width: 860px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-map { position: static; aspect-ratio: 16/10; min-height: 340px; }
+  }
+</style>

@@ -1,0 +1,63 @@
+# =====================================================================
+# Decap CMS – Konfiguration für das Team von Degoumois Dental AG
+#
+# Lokal testen (ohne Login):
+#   1. Terminal A:  npx decap-server
+#   2. In dieser Datei unten `local_backend: true` aktiv lassen
+#   3. Terminal B:  npm run dev  ->  http://localhost:4321/admin/
+#
+# Produktiv (Team meldet sich mit GitHub-Login an):
+#   backend.name: github  + ein OAuth-Proxy (siehe README, Abschnitt CMS).
+# =====================================================================
+
+backend:
+  name: github
+  repo: DEIN-GITHUB-USER/degoumois-dental   # <-- nach dem Anlegen anpassen
+  branch: main
+
+# Lokales Bearbeiten ohne Login (npx decap-server). Vor dem Live-Gang entfernen/auf false.
+local_backend: true
+
+media_folder: "public/uploads"      # Uploads landen im Repo
+public_folder: "/uploads"
+publish_mode: editorial_workflow     # Entwurf -> Review -> Veröffentlicht
+
+locale: de
+
+collections:
+  - name: "news"
+    label: "News & Aktuelles"
+    label_singular: "News-Beitrag"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} – {{date}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", date_format: "DD.MM.YYYY", time_format: false, format: "YYYY-MM-DD" }
+      - label: "Kategorie"
+        name: "category"
+        widget: "select"
+        options: ["Firmenanlass", "Lehrabgänger", "Auszeichnung", "Technologie", "Sponsoring"]
+      - { label: "Kurztext (Teaser)", name: "excerpt", widget: "text" }
+      - { label: "Titelbild", name: "cover", widget: "image", required: false, hint: "Optional. Wird auf der News-Karte angezeigt." }
+      - { label: "Bildbeschreibung (Alt-Text)", name: "coverAlt", widget: "string", required: false }
+      - { label: "Entwurf (nicht veröffentlichen)", name: "draft", widget: "boolean", default: false, required: false }
+      - { label: "Inhalt", name: "body", widget: "markdown" }
+
+  - name: "team"
+    label: "Team"
+    label_singular: "Teammitglied"
+    folder: "src/content/team"
+    create: true
+    slug: "{{order}}-{{slug}}"
+    summary: "{{name}} – {{role}}"
+    sortable_fields: [order, name]
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Funktion / Rolle", name: "role", widget: "string" }
+      - { label: "Reihenfolge", name: "order", widget: "number", default: 100, value_type: "int" }
+      - { label: "Foto", name: "photo", widget: "image", required: false }
+      - { label: "Geschäftsleitung hervorheben", name: "lead", widget: "boolean", default: false, required: false }
+      - { label: "Beschreibung", name: "body", widget: "markdown", required: false }

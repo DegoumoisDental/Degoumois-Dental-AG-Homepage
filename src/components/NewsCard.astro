@@ -1,0 +1,73 @@
+---
+import type { CollectionEntry } from "astro:content";
+interface Props { entry: CollectionEntry<"news">; featured?: boolean; }
+const { entry, featured = false } = Astro.props;
+const { title, date, category, excerpt, cover, coverAlt } = entry.data;
+const dateStr = new Intl.DateTimeFormat("de-CH", { day: "2-digit", month: "long", year: "numeric" }).format(date);
+---
+
+<article class:list={["news-card card", { featured }]}>
+  <a href={`/news/${entry.slug}`} class="news-link">
+    <div class="news-media">
+      {cover ? (
+        <img src={cover} alt={coverAlt ?? title} loading="lazy" decoding="async" />
+      ) : (
+        <div class="news-media-fallback" aria-hidden="true"><span>{category}</span></div>
+      )}
+      <span class="news-badge">{category}</span>
+    </div>
+    <div class="news-body">
+      <time datetime={date.toISOString()} class="news-date">{dateStr}</time>
+      <h3 class="news-title">{title}</h3>
+      <p class="news-excerpt">{excerpt}</p>
+      <span class="news-more">Weiterlesen
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .news-card { overflow: hidden; }
+  .news-link { display: flex; flex-direction: column; height: 100%; }
+  .news-media { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--surface-3); }
+  .news-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+  .news-card:hover .news-media img { transform: scale(1.05); }
+  .news-media-fallback {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--brand-500), var(--brand-800));
+  }
+  .news-media-fallback span {
+    font-family: var(--font-display); font-weight: 700; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.9rem;
+  }
+  .news-badge {
+    position: absolute; top: 0.85rem; left: 0.85rem;
+    background: rgba(255,255,255,0.92); color: var(--brand-700);
+    font-family: var(--font-display); font-weight: 600; font-size: 0.74rem;
+    letter-spacing: 0.04em; padding: 0.35em 0.8em; border-radius: var(--radius-pill);
+    backdrop-filter: blur(4px);
+  }
+  .news-body { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.5rem; flex: 1; }
+  .news-date { font-size: 0.82rem; color: var(--ink-400); font-weight: 600; letter-spacing: 0.02em; }
+  .news-title { font-size: 1.25rem; line-height: 1.25; }
+  .news-excerpt { color: var(--ink-500); font-size: 0.96rem; flex: 1; }
+  .news-more {
+    display: inline-flex; align-items: center; gap: 0.4em;
+    font-family: var(--font-display); font-weight: 600; color: var(--brand-600);
+    font-size: 0.92rem; margin-top: 0.4rem;
+  }
+  .news-more svg { width: 1.05em; height: 1.05em; transition: transform 0.25s var(--ease); }
+  .news-card:hover .news-more svg { transform: translateX(4px); }
+
+  .news-card.featured { grid-column: span 2; }
+  .news-card.featured .news-link { flex-direction: row; }
+  .news-card.featured .news-media { aspect-ratio: auto; flex: 1 1 50%; min-height: 300px; }
+  .news-card.featured .news-body { flex: 1 1 50%; justify-content: center; padding: 2.5rem; }
+  .news-card.featured .news-title { font-size: 1.7rem; }
+  @media (max-width: 760px) {
+    .news-card.featured { grid-column: span 1; }
+    .news-card.featured .news-link { flex-direction: column; }
+    .news-card.featured .news-media { min-height: 200px; }
+  }
+</style>

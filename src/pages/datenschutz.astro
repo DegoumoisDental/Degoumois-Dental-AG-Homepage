@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { site } from "../site";
+---
+
+<BaseLayout title="Datenschutz" description="Datenschutzerklärung der Degoumois Dental AG gemäss schweizerischem Datenschutzgesetz (revDSG).">
+  <PageHeader eyebrow="Rechtliches" title="Datenschutzerklärung" lead="Der Schutz Ihrer Daten ist uns wichtig. Diese Erklärung informiert über die Bearbeitung von Personendaten auf dieser Website." />
+  <section class="section">
+    <div class="container legal">
+      <p class="muted">Stand: {new Date().getFullYear()} · gemäss revDSG (Schweiz) und – soweit anwendbar – DSGVO.</p>
+
+      <h2>1. Verantwortliche Stelle</h2>
+      <p>
+        {site.legalName}, {site.address.street}, {site.address.zip} {site.address.city}.<br />
+        E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+
+      <h2>2. Bearbeitung von Personendaten</h2>
+      <p>
+        Wir bearbeiten Personendaten nur, soweit dies für die Bereitstellung dieser Website und
+        die Kommunikation mit Ihnen erforderlich ist. Beim Besuch der Website werden technisch
+        notwendige Daten (z. B. IP-Adresse, Zeitpunkt des Zugriffs) durch den Hosting-Anbieter
+        protokolliert. Diese Website setzt <strong>keine Tracking- oder Marketing-Cookies</strong> ein.
+      </p>
+
+      <h2>3. Kontaktaufnahme</h2>
+      <p>
+        Wenn Sie uns per E-Mail oder Telefon kontaktieren, werden Ihre Angaben zur Bearbeitung
+        der Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre Einwilligung.
+      </p>
+
+      <h2>4. Eingebettete Inhalte (Karte)</h2>
+      <p>
+        Zur Anzeige des Standorts wird eine Karte von Google Maps eingebunden. Dabei können
+        Daten an Google übertragen werden. Es gelten die Datenschutzbestimmungen von Google.
+      </p>
+
+      <h2>5. Schriftarten</h2>
+      <p>
+        Schriftarten werden <strong>lokal vom eigenen Server</strong> geladen. Es findet keine
+        Verbindung zu externen Font-Diensten statt.
+      </p>
+
+      <h2>6. Ihre Rechte</h2>
+      <p>
+        Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der
+        Bearbeitung Ihrer Personendaten. Wenden Sie sich dazu an die oben genannte Adresse.
+      </p>
+
+      <h2>7. Sicherheit</h2>
+      <p>
+        Die Übertragung dieser Website erfolgt verschlüsselt über HTTPS. Wir treffen
+        angemessene technische und organisatorische Massnahmen zum Schutz Ihrer Daten.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal { max-width: 760px; }
+  .legal .muted { color: var(--ink-400); font-size: 0.9rem; margin-bottom: 2rem; }
+  .legal h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+  .legal p { margin-bottom: 1rem; line-height: 1.8; }
+  .legal a { color: var(--brand-600); font-weight: 600; }
+</style>

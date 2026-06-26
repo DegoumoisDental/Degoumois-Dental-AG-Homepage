@@ -1,0 +1,36 @@
+---
+interface Props { eyebrow?: string; title: string; lead?: string; image?: string; imageAlt?: string; }
+const { eyebrow, title, lead, image } = Astro.props;
+---
+<header class="page-header">
+  <div
+    class="ph-bg"
+    aria-hidden="true"
+    style={image ? `--ph-img: url('${image}')` : undefined}
+  ></div>
+  <div class="container ph-inner">
+    {eyebrow && <p class="ph-eyebrow" data-reveal>{eyebrow}</p>}
+    <h1 data-reveal data-delay="1">{title}</h1>
+    {lead && <p class="ph-lead" data-reveal data-delay="2">{lead}</p>}
+    <slot />
+  </div>
+</header>
+
+<style>
+  .page-header { position: relative; color: #fff; padding-top: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem)); padding-bottom: clamp(3rem, 7vw, 5rem); overflow: hidden; }
+  .ph-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      linear-gradient(155deg, rgba(12,58,85,0.88) 0%, rgba(12,100,146,0.75) 55%, rgba(8,41,61,0.92) 100%),
+      var(--ph-img, none) center / cover no-repeat,
+      linear-gradient(155deg, #0c3a55 0%, #0c6492 55%, #08293d 100%);
+  }
+  .ph-inner { position: relative; z-index: 1; max-width: 760px; }
+  .ph-eyebrow {
+    font-family: var(--font-display); font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.82);
+    margin-bottom: 1rem;
+  }
+  .page-header h1 { color: #fff; }
+  .ph-lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: rgba(255,255,255,0.9); margin-top: 1.25rem; max-width: 60ch; }
+</style>

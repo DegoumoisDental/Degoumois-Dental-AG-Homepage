@@ -1,0 +1,91 @@
+---
+import { nav, site } from "../site";
+const year = new Date().getFullYear();
+const tel = site.phone.replace(/\s/g, "");
+---
+
+<footer class="site-footer">
+  <div class="container-wide">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="/img/logo-degoumois-white.svg" alt={site.name} width="91" height="70" />
+        <p>{site.tagline}. Präzision, Ästhetik und moderne Zahntechnik aus dem Herzen von Solothurn.</p>
+        <a href="/kontakt" class="btn btn-light">Labor besuchen</a>
+      </div>
+
+      <nav class="footer-col" aria-label="Footer-Navigation">
+        <h3>Navigation</h3>
+        <ul>
+          {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <h3>Kontakt</h3>
+        <address>
+          <strong>{site.legalName}</strong><br />
+          {site.address.street}<br />
+          {site.address.zip} {site.address.city}<br />
+          <br />
+          <a href={`tel:${tel}`}>{site.phoneDisplay}</a><br />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </address>
+      </div>
+
+      <div class="footer-col">
+        <h3>Öffnungszeiten</h3>
+        <ul class="hours">
+          {site.openingHours.map((o) => (
+            <li><span>{o.days}</span><span>{o.hours}</span></li>
+          ))}
+        </ul>
+        <p class="footer-note">Eigener Kurierdienst – termingerecht in der Region Solothurn.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {year} {site.legalName}. Alle Rechte vorbehalten.</p>
+      <ul class="legal">
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: linear-gradient(160deg, var(--brand-900), var(--brand-950));
+    color: rgba(255,255,255,0.78);
+    padding-block: clamp(3.5rem, 7vw, 5.5rem) 2rem;
+    margin-top: auto;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .footer-brand img { height: 66px; width: auto; margin-bottom: 1.25rem; }
+  .footer-brand p { color: rgba(255,255,255,0.72); max-width: 36ch; margin-bottom: 1.5rem; }
+  .footer-col h3 { color: #fff; font-size: 1.05rem; margin-bottom: 1.1rem; }
+  .footer-col ul { display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a, address a { color: rgba(255,255,255,0.78); transition: color 0.2s; }
+  .footer-col a:hover, address a:hover { color: var(--brand-300); }
+  address { font-style: normal; line-height: 1.7; color: rgba(255,255,255,0.78); }
+  .hours li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.2rem 0; }
+  .hours span:first-child { color: #fff; font-weight: 600; }
+  .footer-note { margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.55); }
+  .footer-bottom {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+    padding-top: 1.75rem; font-size: 0.9rem; color: rgba(255,255,255,0.55);
+  }
+  .legal { display: flex; gap: 1.5rem; }
+  @media (max-width: 860px) {
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .footer-top { grid-template-columns: 1fr; }
+  }
+</style>

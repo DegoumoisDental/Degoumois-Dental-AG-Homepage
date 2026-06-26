@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { site } from "../site";
+const tel = site.phone.replace(/\s/g, "");
+---
+
+<BaseLayout title="Impressum" description="Impressum der Degoumois Dental AG, Solothurn.">
+  <PageHeader eyebrow="Rechtliches" title="Impressum" />
+  <section class="section">
+    <div class="container legal">
+      <h2>Angaben gemäss Gesetz</h2>
+      <p>
+        <strong>{site.legalName}</strong><br />
+        {site.address.street}<br />
+        {site.address.zip} {site.address.city}<br />
+        {site.address.country}
+      </p>
+      <p>
+        Telefon: <a href={`tel:${tel}`}>{site.phoneDisplay}</a><br />
+        Fax: 032 625 48 49<br />
+        E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+
+      <h2>Vertretungsberechtigte Person</h2>
+      <p>Martin Svarovsky, Inhaber</p>
+
+      <h2>Haftungsausschluss</h2>
+      <p>
+        Die Inhalte dieser Website wurden mit grösstmöglicher Sorgfalt erstellt. Für die
+        Richtigkeit, Vollständigkeit und Aktualität der Inhalte wird jedoch keine Gewähr
+        übernommen. Für Inhalte externer Links sind ausschliesslich deren Betreiber
+        verantwortlich.
+      </p>
+
+      <h2>Urheberrecht</h2>
+      <p>
+        Die auf dieser Website veröffentlichten Inhalte unterliegen dem schweizerischen
+        Urheberrecht. Jede Verwertung ausserhalb der Grenzen des Urheberrechts bedarf der
+        vorherigen schriftlichen Zustimmung der {site.legalName}.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal { max-width: 760px; }
+  .legal h2 { font-size: 1.4rem; margin: 2.5rem 0 0.75rem; }
+  .legal h2:first-child { margin-top: 0; }
+  .legal p { margin-bottom: 1rem; line-height: 1.8; }
+  .legal a { color: var(--brand-600); font-weight: 600; }
+</style>

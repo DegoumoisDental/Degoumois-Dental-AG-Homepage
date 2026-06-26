@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+---
+<BaseLayout title="Seite nicht gefunden" noindex>
+  <section class="nf">
+    <div class="nf-bg" aria-hidden="true"></div>
+    <div class="container nf-inner">
+      <p class="nf-code">404</p>
+      <h1>Diese Seite konnten wir nicht finden.</h1>
+      <p class="nf-lead">Vielleicht wurde sie verschoben oder existiert nicht mehr. Kehren Sie zur Startseite zurück oder kontaktieren Sie uns direkt.</p>
+      <div class="nf-actions">
+        <a href="/" class="btn btn-primary">Zur Startseite <Icon name="arrow" /></a>
+        <a href="/kontakt" class="btn btn-light">Kontakt</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf { position: relative; min-height: 80svh; display: grid; place-items: center; color: #fff; text-align: center; overflow: hidden; }
+  .nf-bg { position: absolute; inset: 0; background: linear-gradient(155deg, #0c3a55, #0c6492 55%, #08293d); }
+  .nf-inner { position: relative; z-index: 1; max-width: 560px; padding-top: var(--header-h); }
+  .nf-code { font-family: var(--font-display); font-weight: 800; font-size: clamp(4rem, 14vw, 8rem); line-height: 1; color: rgba(255,255,255,0.25); }
+  .nf h1 { color: #fff; margin: 0.5rem 0 1rem; }
+  .nf-lead { color: rgba(255,255,255,0.82); margin-bottom: 2rem; }
+  .nf-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+</style>

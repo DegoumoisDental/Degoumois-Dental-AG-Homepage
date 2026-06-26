@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import NewsCard from "../../components/NewsCard.astro";
+
+const all = (await getCollection("news", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const categories = ["Alle", ...new Set(all.map((e) => e.data.category))];
+---
+
+<BaseLayout
+  title="News & Aktuelles"
+  description="Aktuelles aus der Degoumois Dental AG: Firmenanlässe, erfolgreiche Lehrabgänger, neue Technologien und Engagement aus der Region Solothurn."
+>
+  <PageHeader
+    eyebrow="Aktuelles"
+    title="News aus dem Labor"
+    lead="Firmenanlässe, erfolgreiche Lehrabgänger, neue Technologien und unser Engagement in der Region – scrollen Sie durch unsere Geschichten."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar" data-reveal role="tablist" aria-label="News filtern">
+        {categories.map((c, i) => (
+          <button class:list={["filter-btn", { active: i === 0 }]} data-filter={c} type="button">{c}</button>
+        ))}
+      </div>
+
+      <div class="grid news-grid" id="newsGrid">
+        {all.map((entry, i) => (
+          <div class="news-item" data-category={entry.data.category} data-reveal data-delay={(i % 3) + 1}>
+            <NewsCard entry={entry} />
+          </div>
+        ))}
+      </div>
+
+      <p class="empty-note" id="emptyNote" hidden>Keine Beiträge in dieser Kategorie.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+  .filter-btn {
+    font-family: var(--font-display); font-weight: 600; font-size: 0.92rem;
+    padding: 0.55em 1.2em; border-radius: var(--radius-pill);
+    background: var(--surface-2); color: var(--ink-700);
+    border: 1px solid var(--line); transition: all 0.25s var(--ease);
+  }
+  .filter-btn:hover { border-color: var(--brand-300); color: var(--brand-700); }
+  .filter-btn.active { background: linear-gradient(135deg, var(--brand-500), var(--brand-700)); color: #fff; border-color: transparent; box-shadow: 0 6px 16px rgba(14,154,214,0.28); }
+  .news-grid { grid-template-columns: repeat(3, 1fr); }
+  .news-item { transition: opacity 0.3s var(--ease); }
+  .empty-note { text-align: center; color: var(--ink-400); padding: 2rem 0; }
+  @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  function initNewsFilter() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const items = document.querySelectorAll<HTMLElement>(".news-item");
+    const emptyNote = document.getElementById("emptyNote");
+    if (!buttons.length) return;
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter;
+        buttons.forEach((b) => b.classList.toggle("active", b === btn));
+        let visible = 0;
+        items.forEach((item) => {
+          const show = filter === "Alle" || item.dataset.category === filter;
+          item.style.display = show ? "" : "none";
+          if (show) visible++;
+        });
+        if (emptyNote) emptyNote.hidden = visible !== 0;
+      });
+    });
+  }
+  initNewsFilter();
+  document.addEventListener("astro:after-swap", initNewsFilter);
+</script>

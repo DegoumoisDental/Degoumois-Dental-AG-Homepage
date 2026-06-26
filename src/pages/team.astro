@@ -1,0 +1,330 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+
+const all = (await getCollection("team")).sort((a, b) => a.data.order - b.data.order);
+const management = all.filter((m) => m.data.lead);
+const staff = all.filter((m) => !m.data.lead);
+const initials = (name: string) => name.split(" ").map((n) => n[0]).slice(0, 2).join("");
+
+const glRendered = await Promise.all(
+  management.map(async (m) => {
+    const { Content } = await m.render();
+    return { data: m.data, Content };
+  })
+);
+---
+
+<BaseLayout
+  title="Team"
+  description="Das Team der Degoumois Dental AG – erfahrene Zahntechnikerinnen und Zahntechniker aus Solothurn, spezialisiert auf CAD/CAM, Keramik, Prothetik und Implantattechnik."
+>
+  <PageHeader
+    eyebrow="Unser Team"
+    title="Die Menschen hinter der Präzision"
+    lead="Ein eingespieltes Team von Spezialistinnen und Spezialisten – flexibel, engagiert und mit Leidenschaft für hochwertige Zahntechnik."
+    image="/img/labor/zahnarzt-fokus.jpg"
+    imageAlt="Zahnarzt fokussiert bei der Arbeit"
+  />
+
+  <!-- Geschäftsleitung -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label" data-reveal>
+        <p class="eyebrow">Geschäftsleitung</p>
+      </div>
+      <div class="gl-grid">
+        {glRendered.map(({ data, Content }, i) => (
+          <article class="gl-card" data-reveal data-delay={i + 1}>
+            <div class="card-photo">
+              {data.photo
+                ? <img src={data.photo} alt={data.name} loading="lazy" />
+                : <div class="photo-fallback"><span>{initials(data.name)}</span></div>}
+            </div>
+            <div class="gl-glass">
+              <p class="card-role">{data.role}</p>
+              <h3 class="card-name">{data.name}</h3>
+              <div class="card-bio">
+                <Content />
+              </div>
+              <button class="mehr-btn" aria-expanded="false">
+                Mehr lesen
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Mitarbeiter -->
+  <section class="section staff-section">
+    <div class="container">
+      <div class="section-label" data-reveal>
+        <p class="eyebrow">Mitarbeiterinnen & Mitarbeiter</p>
+      </div>
+      <div class="staff-grid">
+        {staff.map((m, i) => (
+          <article class="staff-card" data-reveal data-delay={(i % 5) + 1}>
+            <div class="card-photo">
+              {m.data.photo
+                ? <img src={m.data.photo} alt={m.data.name} loading="lazy" />
+                : <div class="photo-fallback"><span>{initials(m.data.name)}</span></div>}
+            </div>
+            <div class="staff-glass">
+              <p class="card-name-sm">{m.data.name}</p>
+              <p class="card-role-sm">{m.data.role}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-label { margin-bottom: 2.5rem; }
+
+  /* ── Geschäftsleitung ─────────────────────────────── */
+  .gl-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 420px));
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .gl-card {
+    position: relative;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    box-shadow: 0 20px 60px rgba(8, 41, 61, 0.22);
+    background: var(--brand-950);
+  }
+
+  /* Photo fills full card */
+  .gl-card .card-photo {
+    position: absolute;
+    inset: 0;
+  }
+
+  .gl-card .card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .gl-card:hover .card-photo img { transform: scale(1.04); }
+
+
+  /* Liquid glass panel – bottom only */
+  .gl-glass {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(32px) saturate(160%);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 0 0 1.2rem 1.2rem;
+    padding: 1rem 1.4rem 1.25rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .card-role {
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(180, 220, 245, 0.95);
+    margin-bottom: 0.25rem;
+    line-height: 1.35;
+  }
+
+  .card-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* Bio: hidden by default, revealed on toggle */
+  .card-bio {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.35s ease,
+                margin-top 0.3s ease;
+    opacity: 0;
+    margin-top: 0;
+    font-size: 0.82rem;
+    line-height: 1.62;
+    color: #fff;
+  }
+
+  .card-bio.is-open {
+    max-height: 240px;
+    opacity: 1;
+    margin-top: 0.65rem;
+  }
+
+  .card-bio :global(p) { margin: 0; color: #fff; }
+
+  .mehr-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.55rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: rgba(180, 220, 245, 0.9);
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .mehr-btn:hover { color: #fff; }
+
+  .mehr-btn svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mehr-btn.is-open svg { transform: rotate(180deg); }
+
+  /* ── Mitarbeiter ──────────────────────────────────── */
+  .staff-section {
+    background: var(--surface-2);
+    border-top: 1px solid var(--line);
+  }
+
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+
+  .staff-card {
+    position: relative;
+    border-radius: 0.875rem;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: var(--brand-900);
+    box-shadow: 0 4px 20px rgba(8, 41, 61, 0.14);
+  }
+
+  .staff-card .card-photo {
+    position: absolute;
+    inset: 0;
+  }
+
+  .staff-card .card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .staff-card:hover .card-photo img { transform: scale(1.06); }
+
+
+  /* Liquid glass panel – staff */
+  .staff-glass {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.75rem 0.875rem 0.875rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .card-name-sm {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-role-sm {
+    font-size: 0.7rem;
+    color: rgba(180, 215, 240, 0.85);
+    line-height: 1.35;
+  }
+
+  /* Fallback initials */
+  .photo-bg {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center top;
+  }
+
+  .photo-fallback {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--brand-600), var(--brand-900));
+  }
+
+  .photo-fallback span {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* ── Responsive ───────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .staff-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .gl-grid { grid-template-columns: repeat(2, 1fr); }
+    .staff-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .gl-grid { grid-template-columns: 1fr; max-width: 320px; margin-inline: auto; }
+    .staff-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .card-name { font-size: 1.15rem; }
+  }
+</style>
+
+<script>
+  function initMehrBtn() {
+    document.querySelectorAll<HTMLButtonElement>(".mehr-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const bio = btn.previousElementSibling as HTMLElement;
+        const open = bio.classList.toggle("is-open");
+        btn.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", String(open));
+        btn.childNodes[0].textContent = open ? "Weniger " : "Mehr lesen ";
+      });
+    });
+  }
+  initMehrBtn();
+  document.addEventListener("astro:after-swap", initMehrBtn);
+</script>
