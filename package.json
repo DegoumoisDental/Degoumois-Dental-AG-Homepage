@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node patch-runtime.mjs",
     "preview": "astro preview",
     "astro": "astro"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@astrojs/node": "^8.3.4",
