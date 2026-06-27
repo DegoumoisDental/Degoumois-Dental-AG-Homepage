@@ -1,17 +1,20 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
-import vercel from "@astrojs/vercel";
+import react from "@astrojs/react";
 import keystatic from "@keystatic/astro";
 
 // Live-Domain hier anpassen, sobald bekannt:
 const SITE = "https://www.degoumoisdental.ch";
 
+const isDev = process.env.NODE_ENV !== "production";
+
 export default defineConfig({
   site: SITE,
   output: "hybrid",
-  adapter: vercel(),
+  ...(isDev ? {} : { adapter: (await import("@astrojs/vercel")).default() }),
   trailingSlash: "ignore",
   integrations: [
+    react(),
     keystatic(),
     sitemap({
       changefreq: "monthly",
@@ -23,7 +26,6 @@ export default defineConfig({
     inlineStylesheets: "auto",
   },
   image: {
-    // Schutz: nur eigene Domain als Bildquelle
     domains: [],
   },
 });
