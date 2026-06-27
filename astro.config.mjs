@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV !== "production";
 export default defineConfig({
   site: SITE,
   output: "hybrid",
-  ...(isDev ? {} : { adapter: (await import("@astrojs/vercel")).default() }),
+  ...(isDev ? {} : { adapter: (await import("@astrojs/vercel/serverless")).default() }),
   trailingSlash: "ignore",
   integrations: [
     react(),
