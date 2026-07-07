@@ -63,8 +63,9 @@ export default config({
           label: "Entwurf (nicht öffentlich)",
           defaultValue: false,
         }),
-        content: fields.markdownEditor({
+        content: fields.text({
           label: "Inhalt",
+          multiline: true,
         }),
       },
     }),
