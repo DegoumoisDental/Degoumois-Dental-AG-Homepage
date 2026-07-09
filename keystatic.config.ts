@@ -63,9 +63,9 @@ export default config({
           label: "Entwurf (nicht öffentlich)",
           defaultValue: false,
         }),
-        content: fields.text({
+        content: fields.markdoc({
           label: "Inhalt",
-          multiline: true,
+          extension: "md",
         }),
       },
     }),
