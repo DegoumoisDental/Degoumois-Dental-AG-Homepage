@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import Seo from "../components/Seo.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -43,6 +44,7 @@ const { hero = false, ...seo } = Astro.props;
     <Footer />
     <JobStoerer />
     <Analytics />
+    <SpeedInsights />
 
     <script>
       // Scroll-Reveal via IntersectionObserver – respektiert reduced-motion.
