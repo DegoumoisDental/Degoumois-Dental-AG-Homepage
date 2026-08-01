@@ -1,7 +1,8 @@
 ---
 name: Stefan Huser
-role: Zahntechniker EFZ · CAD/CAM
-order: 3.7
+role: selbstständiger Zahntechniker EFZ, KFO
+order: 21
 lead: false
 photo: /img/team/Stefan_Huser.jpg
+email: Stefan.huser@ortholabor.ch
 ---

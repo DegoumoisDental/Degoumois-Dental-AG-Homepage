@@ -1,7 +1,7 @@
 ---
-name: Abdul
-role: Zahntechniker EFZ
-order: 12.5
+name: Abdulkadir Tütüncü
+role: Zahntechniker EFZ, Modellguss
+order: 20
 lead: false
 photo: /img/team/Abdul.jpg
 ---

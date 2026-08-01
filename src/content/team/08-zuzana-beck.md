@@ -1,7 +1,7 @@
 ---
 name: Zuzana Beck
-role: Zahntechnikerin EFZ · Kunststoffprothetik, Valplast
-order: 8
+role: Zahntechnikerin EFZ, Kunststoffprothetik
+order: 14
 lead: false
 photo: /img/team/Zuzana_Beck.jpg
 ---

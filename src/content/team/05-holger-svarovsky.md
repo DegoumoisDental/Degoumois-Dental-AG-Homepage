@@ -1,7 +1,7 @@
 ---
 name: Holger Svarovsky
-role: Zahntechniker · Modellguss, CAD/CAM
-order: 3.6
+role: Zahntechniker, CAD/CAM Leiter
+order: 13
 lead: false
 photo: /img/team/Holger_Svarovsky.jpg
 ---

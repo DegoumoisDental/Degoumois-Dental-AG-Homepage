@@ -1,7 +1,8 @@
 ---
 name: Ines Pocher
-role: Kundenbetreuung & Administration
-order: 3.5
+role: HR Assistentin, Buchhaltung, Administration
+order: 11
 lead: false
 photo: /img/team/Ines_Pocher.jpg
+email: ines.pocher@degoumoisdental.ch
 ---

@@ -2,11 +2,11 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
 
 const all = (await getCollection("team")).sort((a, b) => a.data.order - b.data.order);
 const management = all.filter((m) => m.data.lead);
 const staff = all.filter((m) => !m.data.lead);
-const initials = (name: string) => name.split(" ").map((n) => n[0]).slice(0, 2).join("");
 
 const glRendered = await Promise.all(
   management.map(async (m) => {
@@ -40,11 +40,16 @@ const glRendered = await Promise.all(
             <div class="card-photo">
               {data.photo
                 ? <img src={data.photo} alt={data.name} loading="lazy" />
-                : <div class="photo-fallback"><span>{initials(data.name)}</span></div>}
+                : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
             </div>
             <div class="gl-glass">
               <p class="card-role">{data.role}</p>
               <h3 class="card-name">{data.name}</h3>
+              {data.email && (
+                <a href={`mailto:${data.email}`} class="card-email">
+                  <Icon name="mail" /> {data.email}
+                </a>
+              )}
               <div class="card-bio">
                 <Content />
               </div>
@@ -71,11 +76,16 @@ const glRendered = await Promise.all(
             <div class="card-photo">
               {m.data.photo
                 ? <img src={m.data.photo} alt={m.data.name} loading="lazy" />
-                : <div class="photo-fallback"><span>{initials(m.data.name)}</span></div>}
+                : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
             </div>
             <div class="staff-glass">
               <p class="card-name-sm">{m.data.name}</p>
               <p class="card-role-sm">{m.data.role}</p>
+              {m.data.email && (
+                <a href={`mailto:${m.data.email}`} class="card-email-sm" aria-label={m.data.email} title={m.data.email}>
+                  <Icon name="mail" />
+                </a>
+              )}
             </div>
           </article>
         ))}
@@ -154,6 +164,18 @@ const glRendered = await Promise.all(
     margin-bottom: 0;
     letter-spacing: -0.01em;
   }
+
+  .card-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .card-email:hover { color: #fff; }
 
   /* Bio: hidden by default, revealed on toggle */
   .card-bio {
@@ -273,7 +295,16 @@ const glRendered = await Promise.all(
     line-height: 1.35;
   }
 
-  /* Fallback initials */
+  .card-email-sm {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.35rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s;
+  }
+  .card-email-sm:hover { color: #fff; }
+
+  /* Fallback: Platzhalter für fehlendes Foto */
   .photo-bg {
     width: 100%;
     height: 100%;
@@ -286,14 +317,14 @@ const glRendered = await Promise.all(
     height: 100%;
     display: grid;
     place-items: center;
-    background: linear-gradient(135deg, var(--brand-600), var(--brand-900));
+    background: #e4e7ea;
   }
 
-  .photo-fallback span {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 3rem;
-    color: rgba(255, 255, 255, 0.6);
+  .fallback-icon {
+    width: 40%;
+    height: 40%;
+    color: #b7bec4;
+    stroke-width: 1.3;
   }
 
   /* ── Responsive ───────────────────────────────────── */

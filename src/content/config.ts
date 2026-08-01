@@ -29,6 +29,7 @@ const team = defineCollection({
     order: z.number().default(100),
     photo: z.string().optional(),
     photoZoom: z.number().optional(),
+    email: z.string().email().optional(),
     lead: z.boolean().default(false),
   }),
 });

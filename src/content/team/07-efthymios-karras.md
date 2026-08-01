@@ -1,7 +1,7 @@
 ---
 name: Efthymios Karras
 role: Kurier
-order: 12.6
+order: 27
 lead: false
 photo: /img/team/Efthymios_Karras.jpg
 ---
