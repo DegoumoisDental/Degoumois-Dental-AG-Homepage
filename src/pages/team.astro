@@ -97,9 +97,17 @@ const glRendered = await Promise.all(
               <p class="card-name-sm">{m.data.name}</p>
               <p class="card-role-sm">{m.data.role}</p>
               {m.data.email && (
-                <a href={`mailto:${m.data.email}`} class="card-email-sm" aria-label={m.data.email} title={m.data.email}>
-                  <Icon name="mail" />
-                </a>
+                <Fragment>
+                  <div class="staff-extra">
+                    <a href={`mailto:${m.data.email}`} class="card-email-sm" title={m.data.email}>
+                      <Icon name="mail" /> {m.data.email}
+                    </a>
+                  </div>
+                  <button class="mehr-btn mehr-btn-sm" aria-expanded="false">
+                    Mehr lesen
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                </Fragment>
               )}
             </div>
           </article>
@@ -370,14 +378,42 @@ const glRendered = await Promise.all(
     line-height: 1.35;
   }
 
+  /* Extra info (z.B. E-Mail): eingeklappt, nur via "Mehr lesen" sichtbar –
+     hält die Kartenhöhe für alle Mitarbeitenden einheitlich */
+  .staff-extra {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease,
+                margin-top 0.25s ease;
+    opacity: 0;
+    margin-top: 0;
+  }
+
+  .staff-extra.is-open {
+    max-height: 40px;
+    opacity: 1;
+    margin-top: 0.3rem;
+  }
+
   .card-email-sm {
     display: inline-flex;
     align-items: center;
-    margin-top: 0.35rem;
-    color: rgba(255, 255, 255, 0.7);
+    gap: 0.3rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.65rem;
+    line-height: 1.3;
     transition: color 0.2s;
   }
   .card-email-sm:hover { color: #fff; }
+
+  .mehr-btn-sm {
+    margin-top: 0.3rem;
+    font-size: 0.65rem;
+    gap: 0.2rem;
+  }
+  .mehr-btn-sm svg { width: 11px; height: 11px; }
 
   /* Fallback: Platzhalter für fehlendes Foto */
   .photo-bg {
