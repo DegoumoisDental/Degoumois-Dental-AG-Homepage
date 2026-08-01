@@ -31,6 +31,9 @@ const team = defineCollection({
     photoZoom: z.number().optional(),
     email: z.string().email().optional(),
     lead: z.boolean().default(false),
+    vitae: z.array(z.string()).optional(),
+    quote: z.string().optional(),
+    quoteAuthor: z.string().optional(),
   }),
 });
 

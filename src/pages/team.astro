@@ -11,7 +11,7 @@ const staff = all.filter((m) => !m.data.lead);
 const glRendered = await Promise.all(
   management.map(async (m) => {
     const { Content } = await m.render();
-    return { data: m.data, Content };
+    return { data: m.data, Content, hasBio: m.body.trim().length > 0 };
   })
 );
 ---
@@ -35,7 +35,7 @@ const glRendered = await Promise.all(
         <p class="eyebrow">Geschäftsleitung</p>
       </div>
       <div class="gl-grid">
-        {glRendered.map(({ data, Content }, i) => (
+        {glRendered.map(({ data, Content, hasBio }, i) => (
           <article class="gl-card" data-reveal data-delay={i + 1}>
             <div class="card-photo">
               {data.photo
@@ -50,13 +50,28 @@ const glRendered = await Promise.all(
                   <Icon name="mail" /> {data.email}
                 </a>
               )}
-              <div class="card-bio">
-                <Content />
-              </div>
-              <button class="mehr-btn" aria-expanded="false">
-                Mehr lesen
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
+              {hasBio && (
+                <Fragment>
+                  <div class="card-bio">
+                    <Content />
+                    {data.vitae && data.vitae.length > 0 && (
+                      <ul class="vitae-timeline">
+                        {data.vitae.map((item) => <li>{item}</li>)}
+                      </ul>
+                    )}
+                    {data.quote && (
+                      <blockquote class="card-quote">
+                        „{data.quote}“
+                        {data.quoteAuthor && <cite>{data.quoteAuthor}</cite>}
+                      </blockquote>
+                    )}
+                  </div>
+                  <button class="mehr-btn" aria-expanded="false">
+                    Mehr lesen
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                </Fragment>
+              )}
             </div>
           </article>
         ))}
@@ -192,12 +207,72 @@ const glRendered = await Promise.all(
   }
 
   .card-bio.is-open {
-    max-height: 240px;
+    max-height: 420px;
     opacity: 1;
     margin-top: 0.65rem;
   }
 
   .card-bio :global(p) { margin: 0; color: #fff; }
+
+  /* Simple downward timeline for Vitae-Stichpunkte */
+  .vitae-timeline {
+    list-style: none;
+    margin: 0.85rem 0 0;
+    padding: 0;
+  }
+
+  .vitae-timeline li {
+    position: relative;
+    padding-left: 1.05rem;
+    padding-bottom: 0.55rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .vitae-timeline li:last-child { padding-bottom: 0; }
+
+  .vitae-timeline li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(180, 220, 245, 0.95);
+  }
+
+  .vitae-timeline li::after {
+    content: "";
+    position: absolute;
+    left: 2.5px;
+    top: 0.85em;
+    bottom: -0.1em;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .vitae-timeline li:last-child::after { display: none; }
+
+  .card-quote {
+    margin: 0.85rem 0 0;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 0.76rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .card-quote cite {
+    display: block;
+    margin-top: 0.3rem;
+    font-style: normal;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(180, 220, 245, 0.9);
+  }
 
   .mehr-btn {
     display: inline-flex;
