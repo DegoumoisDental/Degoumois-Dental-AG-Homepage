@@ -39,7 +39,7 @@ const glRendered = await Promise.all(
           <article class="gl-card" data-reveal data-delay={i + 1}>
             <div class="card-photo">
               {data.photo
-                ? <img src={data.photo} alt={data.name} loading="lazy" style={`--photo-zoom: ${data.photoZoom ?? 1}`} />
+                ? <img src={data.photo} alt={data.name} loading="lazy" />
                 : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
             </div>
             <div class="gl-glass">
@@ -90,7 +90,7 @@ const glRendered = await Promise.all(
           <article class="staff-card" data-reveal data-delay={(i % 5) + 1}>
             <div class="card-photo">
               {m.data.photo
-                ? <img src={m.data.photo} alt={m.data.name} loading="lazy" style={`--photo-zoom: ${m.data.photoZoom ?? 1}`} />
+                ? <img src={m.data.photo} alt={m.data.name} loading="lazy" />
                 : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
             </div>
             <div class="staff-glass">
@@ -140,12 +140,10 @@ const glRendered = await Promise.all(
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transform-origin: center top;
-    transform: scale(var(--photo-zoom, 1));
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  .gl-card:hover .card-photo img { transform: scale(calc(var(--photo-zoom, 1) * 1.04)); }
+  .gl-card:hover .card-photo img { transform: scale(1.04); }
 
 
   /* Liquid glass panel – bottom only */
@@ -334,12 +332,10 @@ const glRendered = await Promise.all(
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transform-origin: center top;
-    transform: scale(var(--photo-zoom, 1));
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  .staff-card:hover .card-photo img { transform: scale(calc(var(--photo-zoom, 1) * 1.06)); }
+  .staff-card:hover .card-photo img { transform: scale(1.06); }
 
 
   /* Liquid glass panel – staff */
