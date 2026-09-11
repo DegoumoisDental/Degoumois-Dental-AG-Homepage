@@ -49,22 +49,38 @@ const stats = [
   </section>
 
   <!-- Leistungen -->
-  <section class="section" style="background:var(--surface-2);border-block:1px solid var(--line);">
+  <section class="section services-section">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Unsere Leistungen</p>
-        <h2>Massgeschneiderte Zahntechnik</h2>
-        <p class="lead mx-auto text-center">
-          Präzision, Ästhetik und moderne Technologie – vereint in Lösungen, die zu Ihrer Praxis passen.
+      <div class="svc-head" data-reveal>
+        <p class="svc-eyebrow"><span class="svc-dash"></span>Unsere Leistungen</p>
+        <h2 class="svc-title">
+          Alles für hochwertigen Zahnersatz,<br />
+          <span class="svc-title-muted">aus einer präzisen Hand.</span>
+        </h2>
+        <p class="svc-sub">
+          Von der digitalen Konstruktion bis zur fertigen Restauration – wir vereinen
+          Präzision, Ästhetik und moderne Technologie.
         </p>
       </div>
-      <div class="grid services-grid">
+      <div class="svc-grid">
         {services.map((s, i) => (
-          <a href={`/leistungen#${s.slug}`} class="service-card card" data-reveal data-delay={(i % 3) + 1}>
-            <div class="service-icon"><Icon name={s.icon} /></div>
-            <h3>{s.title}</h3>
-            <p>{s.short}</p>
-            <span class="service-link">Mehr erfahren <Icon name="arrow" /></span>
+          <a
+            href={`/leistungen#${s.slug}`}
+            class="svc-card"
+            data-tint={i % 4}
+            data-reveal
+            data-delay={(i % 3) + 1}
+          >
+            <span class="svc-shape" aria-hidden="true"></span>
+            <div class="svc-card-top">
+              <span class="svc-chip"><Icon name={s.icon} /></span>
+              <span class="svc-num">{String(i + 1).padStart(2, "0")}</span>
+            </div>
+            <div class="svc-card-body">
+              <h3 class="svc-card-title">{s.title}</h3>
+              <p class="svc-card-text">{s.short}</p>
+              <span class="svc-more">Mehr erfahren <Icon name="arrow" /></span>
+            </div>
           </a>
         ))}
       </div>
@@ -155,17 +171,72 @@ const stats = [
   .section-head h2 { max-width: 18ch; }
   .section-head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; margin-bottom: 3rem; flex-wrap: wrap; }
 
-  .services-grid { grid-template-columns: repeat(3, 1fr); }
-  .service-card { display: flex; flex-direction: column; gap: 0.75rem; padding: 2rem; }
-  .service-icon {
-    width: 56px; height: 56px; border-radius: 16px; margin-bottom: 0.5rem;
-    display: grid; place-items: center; color: var(--brand-600); font-size: 28px;
-    background: linear-gradient(135deg, var(--brand-50), var(--brand-100));
+  /* ── Leistungen (Service-Cards) ─────────────────────── */
+  .services-section { background: #fff; }
+  .svc-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 3.5rem; }
+  .svc-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--font-display); font-weight: 600; font-size: 0.78rem;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-400);
+    margin-bottom: 1.1rem;
   }
-  .service-card p { color: var(--ink-500); flex: 1; }
-  .service-link { display: inline-flex; align-items: center; gap: 0.4em; font-family: var(--font-display); font-weight: 600; color: var(--brand-600); font-size: 0.92rem; }
-  .service-link svg { width: 1.05em; transition: transform 0.25s var(--ease); }
-  .service-card:hover .service-link svg { transform: translateX(4px); }
+  .svc-dash { width: 26px; height: 1.5px; background: var(--ink-300); display: inline-block; }
+  .svc-title { font-size: clamp(1.9rem, 3.4vw, 2.9rem); line-height: 1.12; letter-spacing: -0.02em; }
+  .svc-title-muted { color: var(--ink-300); }
+  .svc-sub { margin-top: 1.1rem; max-width: 46ch; color: var(--ink-500); font-size: 1.02rem; }
+
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  .svc-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    padding: 1.6rem;
+    border-radius: 22px;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--brand-50);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .svc-card[data-tint="0"] { background: #ecf7fc; }
+  .svc-card[data-tint="1"] { background: #eef2f6; }
+  .svc-card[data-tint="2"] { background: #dff0fa; }
+  .svc-card[data-tint="3"] { background: #e8f3f0; }
+  .svc-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(12, 58, 85, 0.14); }
+
+  /* dekorative Hintergrundformen (konzentrische Kreise) */
+  .svc-shape {
+    position: absolute; z-index: 0;
+    width: 230px; height: 230px; border-radius: 50%;
+    bottom: -90px; left: -70px;
+    background: rgba(14, 154, 214, 0.06);
+  }
+  .svc-card::before {
+    content: ""; position: absolute; z-index: 0;
+    width: 150px; height: 150px; border-radius: 50%;
+    bottom: -50px; left: -30px;
+    border: 1px solid rgba(14, 154, 214, 0.12);
+  }
+
+  .svc-card-top { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; }
+  .svc-chip {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: grid; place-items: center; font-size: 26px;
+    background: #fff; color: var(--brand-600);
+    box-shadow: 0 6px 16px rgba(12, 58, 85, 0.08);
+  }
+  .svc-num { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--ink-400); letter-spacing: 0.02em; }
+
+  .svc-card-body { position: relative; z-index: 1; margin-top: auto; padding-top: 2.5rem; }
+  .svc-card-title { font-size: 1.3rem; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .svc-card-text { color: var(--ink-500); font-size: 0.95rem; }
+  .svc-more {
+    display: inline-flex; align-items: center; gap: 0.4em; margin-top: 1.1rem;
+    font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; color: var(--brand-700);
+  }
+  .svc-more svg { width: 1.05em; height: 1.05em; transition: transform 0.25s var(--ease); }
+  .svc-card:hover .svc-more svg { transform: translateX(4px); }
 
   .values-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
   .values-text h2 { font-size: clamp(1.6rem, 2.6vw, 2.3rem); margin-block: 1rem; }
@@ -201,8 +272,8 @@ const stats = [
 
   @media (max-width: 900px) {
     .intro-grid, .values-grid { grid-template-columns: 1fr; }
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .svc-grid { grid-template-columns: repeat(2, 1fr); }
     .news-grid { grid-template-columns: 1fr; }
   }
-  @media (max-width: 560px) { .services-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .svc-grid { grid-template-columns: 1fr; } }
 </style>
