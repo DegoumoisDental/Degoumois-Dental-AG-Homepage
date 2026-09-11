@@ -89,19 +89,15 @@ const stats = [
 
   <PartnerStrip />
 
-  <!-- Stimmungsbild / Impact -->
-  <section class="section photo-band">
-    <div class="photo-band-inner">
-      <div class="photo-item" data-reveal>
-        <img src="/img/labor/zahnmodell.jpg" alt="Zahntechnisches Modell – Degoumois Dental" loading="lazy" decoding="async" />
-      </div>
-      <div class="photo-item" data-reveal data-delay="1">
-        <img src="/img/labor/farbbestimmung.jpg" alt="Farbbestimmung einer Zahnkrone" loading="lazy" decoding="async" />
-      </div>
-      <div class="photo-item" data-reveal data-delay="2">
-        <img src="/img/labor/kunstbild.jpg" alt="Kunstwerk im Degoumois Dental Labor" loading="lazy" decoding="async" />
-      </div>
-    </div>
+  <!-- Stimmungsbild / Impact – durchgehendes, seitenbreites Bild -->
+  <section class="photo-band">
+    <img
+      class="photo-band-img"
+      src="/img/labor/slider.jpg"
+      alt="Einblick ins Dentallabor der Degoumois Dental AG in Solothurn"
+      loading="lazy"
+      decoding="async"
+    />
   </section>
 
   <!-- Werte / Stats -->
@@ -252,11 +248,14 @@ const stats = [
   .news-grid { grid-template-columns: repeat(3, 1fr); }
 
   /* Photo Band */
-  .photo-band { padding-block: 0; overflow: hidden; }
-  .photo-band-inner { display: grid; grid-template-columns: repeat(3, 1fr); height: clamp(220px, 30vw, 400px); }
-  .photo-item { overflow: hidden; }
-  .photo-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.6s var(--ease); }
-  .photo-item:hover img { transform: scale(1.04); }
+  .photo-band { overflow: hidden; line-height: 0; }
+  .photo-band-img {
+    display: block;
+    width: 100%;
+    height: clamp(280px, 40vw, 580px);
+    object-fit: cover;
+    object-position: center;
+  }
 
   .cta {
     position: relative; overflow: hidden;
