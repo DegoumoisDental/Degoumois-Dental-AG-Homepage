@@ -37,17 +37,21 @@ export const nav = [
   { label: "Kontakt", href: "/kontakt" },
 ] as const;
 
-/** Partner-Systeme (Implantat- & Materialhersteller) für die Logo-Leiste. */
+/**
+ * Partner-Firmen (Implantat- & Materialhersteller) für den Partner-Slider.
+ * file = Logo-Pfad (null = Logo fehlt noch → Textplatzhalter). url = Firmen-Homepage.
+ */
 export const partners = [
-  { name: "Straumann", file: "/partner/straumann.jpg" },
-  { name: "Nobel Biocare", file: "/partner/nobel-biocare.jpg" },
-  { name: "Zeramex", file: "/partner/zeramex.jpg" },
-  { name: "Dentalpoint", file: "/partner/dentalpoint.jpg" },
-  { name: "SIC invent", file: "/partner/sic.jpg" },
-  { name: "Astra Tech", file: "/partner/astratech.jpg" },
-  { name: "Atlantis", file: "/partner/atlantis.jpg" },
-  { name: "Thommen Medical", file: "/partner/thommen.jpg" },
-  { name: "Xive", file: "/partner/xive.jpg" },
-  { name: "Dentsply Friadent", file: "/partner/dentsply-friadent.jpg" },
-  { name: "Allshape", file: "/partner/allshape.jpg" },
+  { name: "Straumann",       file: "/partner/straumann.jpg",       url: "https://www.straumann.com" },
+  { name: "Nobel Biocare",   file: "/partner/nobelbiocare.png",    url: "https://www.nobelbiocare.com" },
+  { name: "Thommen Medical", file: "/partner/thommen.jpg",         url: "https://www.thommenmedical.com" },
+  { name: "Allshape",        file: "/partner/allshape.jpg",        url: "https://www.allshape.ch" },
+  { name: "Ivoclar",         file: "/partner/ivoclar.png",         url: "https://www.ivoclar.com" },
+  { name: "Z-Systems",       file: null,                           url: "https://www.zsystems.com" },
+  { name: "Axera Dental",    file: null,                           url: "https://axeradental.ch" },
+  { name: "Sipea",           file: "/partner/sipea-ch-logo.svg",   url: "https://sipea.ch" },
+  { name: "Métaux Précieux", file: "/partner/cendres-metaux.svg",  url: "https://www.cmsa.ch" },
+  { name: "Denseo",          file: null,                           url: "https://www.denseo.de" },
+  { name: "Astra",           file: "/partner/astratech.jpg",       url: "https://www.dentsplysirona.com" },
+  { name: "Ankylos",         file: null,                           url: "https://www.dentsplysirona.com" },
 ] as const;

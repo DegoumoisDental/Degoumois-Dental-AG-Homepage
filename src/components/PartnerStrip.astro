@@ -7,20 +7,39 @@ interface Props {
 }
 const {
   title = "Partner & Systeme",
-  subtitle = "Wir arbeiten mit über 10 führenden Implantat- und Materialsystemen.",
+  subtitle = "Wir arbeiten mit führenden Implantat- und Materialherstellern – jedes Logo führt direkt zur Website des Partners.",
 } = Astro.props;
+
+// Liste verdoppeln für nahtlosen Endlos-Lauf
+const loop = [...partners, ...partners];
 ---
 
-<section class="partners section-tight">
+<section class="partners section-tight" aria-label="Partner & Systeme">
   <div class="container">
     <div class="partners-head" data-reveal>
       <p class="eyebrow">{title}</p>
       <p class="partners-sub">{subtitle}</p>
     </div>
-    <ul class="partner-grid" data-reveal data-delay="1">
-      {partners.map((p) => (
-        <li class="partner-item" title={p.name}>
-          <img src={p.file} alt={`${p.name} – Partner von Degoumois Dental AG`} loading="lazy" decoding="async" />
+  </div>
+
+  <div class="marquee" data-reveal data-delay="1">
+    <ul class="marquee-track">
+      {loop.map((p, i) => (
+        <li class="partner-item">
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="partner-link"
+            title={`${p.name} – Website öffnen`}
+            aria-label={`${p.name} – Website öffnen`}
+            aria-hidden={i >= partners.length ? "true" : undefined}
+            tabindex={i >= partners.length ? -1 : undefined}
+          >
+            {p.file
+              ? <img src={p.file} alt={`${p.name} Logo`} loading="lazy" decoding="async" />
+              : <span class="partner-fallback">{p.name}</span>}
+          </a>
         </li>
       ))}
     </ul>
@@ -28,39 +47,73 @@ const {
 </section>
 
 <style>
-  .partners { background: var(--surface-2); border-block: 1px solid var(--line); }
+  .partners { background: var(--surface-2); border-block: 1px solid var(--line); overflow: hidden; }
   .partners-head {
     display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
     text-align: center; margin-bottom: 2.5rem;
   }
-  .partners-sub { color: var(--ink-500); max-width: 50ch; }
-  .partner-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: clamp(0.75rem, 2vw, 1.5rem);
-    align-items: center;
+  .partners-sub { color: var(--ink-500); max-width: 52ch; }
+
+  /* ── Slider / Marquee ─────────────────────────────── */
+  .marquee {
+    position: relative;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
-  .partner-item {
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 1.25rem;
+    padding-block: 0.5rem;
+    animation: partner-scroll 48s linear infinite;
+    will-change: transform;
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes partner-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; }
+    .marquee { -webkit-mask-image: none; mask-image: none; }
+  }
+
+  .partner-item { flex: 0 0 auto; list-style: none; }
+  .partner-link {
     display: flex; align-items: center; justify-content: center;
+    width: 190px; height: 96px;
     background: #fff;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 1.25rem 1rem;
-    min-height: 88px;
+    padding: 1rem 1.25rem;
     transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
   }
-  .partner-item img {
-    max-height: 46px; width: auto;
-    filter: grayscale(1) opacity(0.7);
+  .partner-link img {
+    max-height: 52px; max-width: 100%; width: auto;
+    filter: grayscale(1) opacity(0.72);
     transition: filter 0.3s var(--ease), transform 0.3s var(--ease);
   }
-  .partner-item:hover {
+  .partner-link:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
     border-color: var(--brand-200);
   }
-  .partner-item:hover img { filter: grayscale(0) opacity(1); transform: scale(1.04); }
+  .partner-link:hover img { filter: grayscale(0) opacity(1); transform: scale(1.04); }
 
-  @media (max-width: 880px) { .partner-grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (max-width: 520px) { .partner-grid { grid-template-columns: repeat(2, 1fr); } }
+  /* Textplatzhalter für noch fehlende Logos */
+  .partner-fallback {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    color: var(--brand-700);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 560px) {
+    .partner-link { width: 150px; height: 84px; }
+    .partner-link img { max-height: 42px; }
+  }
 </style>
