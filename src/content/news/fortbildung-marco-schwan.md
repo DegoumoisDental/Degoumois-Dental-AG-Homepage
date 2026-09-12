@@ -3,6 +3,8 @@ title: "Fortbildung mit Marco Schwan zur Implantatprothetik"
 date: 2025-11-06
 category: "Firmenanlass"
 excerpt: "Am 6. November 2025 besuchte unser Team eine Fortbildung von Marco Schwan – mit zwei Vorträgen zum Langzeiterfolg und zu digitalen Workflows in der Implantologie und einem gemütlichen Apéro zum Ausklang."
+cover: "/img/labor/H4_Event-65.jpg"
+coverAlt: "Team der Degoumois Dental AG bei der Fortbildung mit Marco Schwan"
 ---
 
 Am **6. November 2025** durften wir an einer spannenden Fortbildung von **Marco Schwan**
