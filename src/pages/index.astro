@@ -165,16 +165,11 @@ const stats = [
 
   <!-- CTA -->
   <section class="cta">
-    <div class="cta-photo" aria-hidden="true">
-      <img src="/img/labor/diplome.jpg" alt="" loading="lazy" decoding="async" />
-    </div>
-    <div class="container cta-inner" data-reveal style="position:relative;z-index:1;">
-      <h2>Bereit für eine reibungslose Zusammenarbeit?</h2>
-      <p>Senden Sie uns Ihren nächsten Auftrag oder besprechen Sie einen Fall direkt mit unserem Team. Wir beraten Sie persönlich und finden gemeinsam die passende zahntechnische Lösung.</p>
-      <div class="cta-actions">
-        <a href={`tel:${site.phone.replace(/\s/g,"")}`} class="btn btn-light"><Icon name="phone" /> {site.phoneDisplay}</a>
-        <a href="/kontakt" class="btn btn-primary">Kontakt aufnehmen <Icon name="arrow" /></a>
-      </div>
+    <div class="container cta-inner" data-reveal>
+      <h2>Sie möchten einen Termin vereinbaren?</h2>
+      <p class="cta-sub">Lernen Sie uns kennen. Wir freuen uns über Ihren Anruf.</p>
+      <a href={`tel:${site.phone.replace(/\s/g, "")}`} class="cta-phone">{site.phone}</a>
+      <p class="cta-mail">Oder schreiben Sie uns einfach eine <a href={`mailto:${site.email}`}>E-Mail</a>.</p>
     </div>
   </section>
 </BaseLayout>
@@ -271,17 +266,20 @@ const stats = [
     object-position: center;
   }
 
-  .cta {
-    position: relative; overflow: hidden;
-    background: linear-gradient(160deg, var(--brand-800), var(--brand-950));
-    color: #fff; padding-block: clamp(4rem, 8vw, 6.5rem);
+  .cta { background: #fff; padding-block: clamp(4rem, 8vw, 6.5rem); }
+  .cta-inner { text-align: center; max-width: 700px; margin-inline: auto; }
+  .cta-inner h2 { color: var(--accent-deep); }
+  .cta-sub { color: var(--ink-500); margin-top: 1rem; font-size: 1.1rem; }
+  .cta-phone {
+    display: inline-block; margin-top: 1.5rem;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3.1rem); letter-spacing: 0.01em;
+    color: var(--accent-deep); transition: color 0.2s var(--ease);
   }
-  .cta-photo { position: absolute; inset: 0; z-index: 0; }
-  .cta-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.18; mix-blend-mode: luminosity; }
-  .cta-inner { text-align: center; max-width: 640px; }
-  .cta-inner h2 { color: #fff; }
-  .cta-inner p { color: rgba(255,255,255,0.82); margin-block: 1rem 2rem; font-size: 1.1rem; }
-  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .cta-phone:hover { color: var(--brand-600); }
+  .cta-mail { margin-top: 1.5rem; color: var(--ink-500); font-size: 1.05rem; }
+  .cta-mail a { color: var(--brand-600); text-decoration: underline; text-underline-offset: 3px; }
+  .cta-mail a:hover { color: var(--brand-700); }
 
   @media (max-width: 900px) {
     .intro-grid, .values-grid { grid-template-columns: 1fr; }

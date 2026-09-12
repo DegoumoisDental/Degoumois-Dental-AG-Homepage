@@ -146,6 +146,11 @@ export const services: Service[] = [
     body: [],
     points: [
       "Individuelle Protrusionsschienen / Silenso",
+      "Schienentherapie",
+      "GNE analog und digital",
+      "Herausnehmbare Zahnspangen",
+      "Retainer digital und analog",
+      "Herbstscharnier",
     ],
   },
   {

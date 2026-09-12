@@ -81,6 +81,46 @@ const mapsQuery = encodeURIComponent(`${site.legalName}, ${site.address.street},
       </div>
     </div>
   </section>
+
+  <!-- Karriere / Offene Stellen -->
+  <section class="section careers">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow mx-auto" style="justify-content:center;">Karriere</p>
+        <h2 class="text-center">Werde Teil unseres Teams</h2>
+      </div>
+      <div class="careers-grid">
+        <article class="career-card card" data-reveal>
+          <span class="career-tag career-tag-open">Offene Stelle</span>
+          <h3>Lehrstelle Zahntechniker:in EFZ</h3>
+          <p class="career-meta">Start Sommer 2027 · Solothurn</p>
+          <p>Du interessierst dich für Zahntechnik, digitales Arbeiten und präzises Handwerk?
+          Wir bilden aus – in einem erfahrenen Team mit modernen Technologien und
+          abwechslungsreichen zahntechnischen Fällen.</p>
+          <a
+            href={`mailto:${site.email}?subject=${encodeURIComponent("Bewerbung Lehrstelle Zahntechniker:in EFZ 2027")}`}
+            class="btn btn-primary"
+          >
+            <Icon name="mail" /> Jetzt bewerben
+          </a>
+        </article>
+
+        <article class="career-card card" data-reveal data-delay="1">
+          <span class="career-tag">Spontanbewerbung</span>
+          <h3>Initiativ bewerben</h3>
+          <p>Aktuell keine passende Stelle dabei? Wir freuen uns trotzdem über deine Bewerbung.
+          Sende uns deinen Lebenslauf sowie – falls vorhanden – Zeugnisse, absolvierte Kurse
+          und Weiterbildungen.</p>
+          <a
+            href={`mailto:${site.email}?subject=${encodeURIComponent("Spontanbewerbung Degoumois Dental")}`}
+            class="btn btn-ghost"
+          >
+            <Icon name="mail" /> Bewerbung senden
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -103,5 +143,26 @@ const mapsQuery = encodeURIComponent(`${site.legalName}, ${site.address.street},
   @media (max-width: 860px) {
     .contact-grid { grid-template-columns: 1fr; }
     .contact-map { position: static; aspect-ratio: 16/10; min-height: 340px; }
+  }
+
+  /* Karriere */
+  .careers { background: var(--surface-2); border-top: 1px solid var(--line); }
+  .section-head { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin-bottom: 3rem; }
+  .careers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 960px; margin-inline: auto; }
+  .career-card { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; padding: 2rem; }
+  .career-tag {
+    display: inline-block; font-family: var(--font-display); font-weight: 600;
+    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.35em 0.8em; border-radius: 999px;
+    background: var(--surface-3); color: var(--ink-500);
+  }
+  .career-tag-open { background: var(--brand-100); color: var(--brand-700); }
+  .career-card h3 { font-size: 1.25rem; color: var(--accent-deep); }
+  .career-meta { color: var(--brand-600); font-weight: 600; font-size: 0.92rem; margin-top: -0.2rem; }
+  .career-card p { color: var(--ink-500); flex: 1; }
+  .career-card .btn { margin-top: 0.5rem; }
+
+  @media (max-width: 640px) {
+    .careers-grid { grid-template-columns: 1fr; }
   }
 </style>
