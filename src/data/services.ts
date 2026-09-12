@@ -5,10 +5,12 @@ export interface Service {
   title: string; // Card-Titel (Startseite)
   short: string; // Card-Text (Startseite)
   h2: string; // Überschrift der Leistungssektion
-  subheadline: string; // Subheadline (h3) der Leistungssektion
+  subheadline?: string; // Subheadline (h3) der Leistungssektion
   body: string[]; // Fliesstext der Leistungssektion (Absätze)
   points: string[]; // Systeme / Materialien / Leistungen
   note?: string; // optionaler Hinweis nach der Liste
+  image?: string; // Hintergrundbild der Startseiten-Card
+  homepage?: boolean; // false = nur auf der Leistungsseite anzeigen
 }
 
 export const services: Service[] = [
@@ -17,19 +19,20 @@ export const services: Service[] = [
     icon: "cube",
     title: "CAD/CAM-Technologie",
     short:
-      "Digitale Konstruktion und präzise Fertigung von zahntechnischen Restaurationen aus Zirkon, Aluminiumoxid, Titan und weiteren modernen Werkstoffen.",
+      "Digitale Konstruktion und präzise Fertigung von zahntechnischen Restaurationen aus Zirkon, Chrom-Kobalt, Titan und weiteren modernen Werkstoffen.",
     h2: "CAD/CAM-Zahntechnik",
     subheadline: "Digitale Konstruktion trifft präzise Fertigung",
+    image: "/img/labor/komprimiert/Keyvisual_Labor_Startseite_1.jpg",
     body: [
       "CAD/CAM ist ein zentraler Bestandteil unserer digitalen Zahntechnik. Zahntechnische Restaurationen werden digital konstruiert und mit modernen Fertigungsverfahren präzise umgesetzt.",
-      "Je nach Indikation verarbeiten wir unter anderem Zirkon, Aluminiumoxid, Titan sowie verschiedene dentale Kunststoffe.",
+      "Je nach Indikation verarbeiten wir unter anderem Zirkon, Chrom-Kobalt, Titan, PMMA, Nylon/Eldy, Hybridkeramik sowie Peek.",
       "Dabei arbeiten wir mit mehreren Systemen, damit wir flexibel auf unterschiedliche Anforderungen und bestehende Praxis-Workflows reagieren können.",
     ],
     points: [
       "Etkon / Straumann",
-      "Zenotec Wieland",
-      "inLab Sirona",
-      "3D-Druck mit NextDent 5100 und Anycubic",
+      "PrograMill PM7",
+      "3Shape und Exocad",
+      "3D-Druck",
       "digitale Konstruktion",
       "digitale Datenverarbeitung",
     ],
@@ -42,6 +45,7 @@ export const services: Service[] = [
       "Individuelle implantatgetragene Lösungen, Custom Abutments und komplexe Versorgungen auf mehr als zehn verschiedenen Implantatsystemen.",
     h2: "Implantatprothetik",
     subheadline: "Individuelle Lösungen für implantatgetragenen Zahnersatz",
+    image: "/img/labor/komprimiert/zahnmodell_1.jpg",
     body: [
       "Implantatprothetische Versorgungen verlangen präzise Planung, hohe Passgenauigkeit und eine enge Abstimmung zwischen Zahnarztpraxis und Dentallabor.",
       "Wir begleiten implantatprothetische Fälle von der Planung bis zur fertigen Versorgung und arbeiten mit mehr als zehn Implantatsystemen.",
@@ -52,6 +56,8 @@ export const services: Service[] = [
       "implantatgetragene Restaurationen",
       "Straumann",
       "Nobel Biocare",
+      "Thommen Medical",
+      "Ankylos",
       "Zeramex",
       "weitere etablierte Implantatsysteme",
       "Keramikimplantate",
@@ -66,6 +72,7 @@ export const services: Service[] = [
       "Hochwertige vollkeramische Restaurationen mit Fokus auf natürliche Zahnästhetik, präzise Passung und zuverlässige Funktion.",
     h2: "Vollkeramik & ästhetische Zahntechnik",
     subheadline: "Natürlich wirkender Zahnersatz mit modernen Keramiken",
+    image: "/img/labor/degoumois_2.jpg",
     body: [
       "Bei ästhetischen Restaurationen kommt es auf jedes Detail an. Zahnform, Oberflächenstruktur, Transluzenz und Farbwirkung müssen harmonisch zusammenspielen.",
       "Wir fertigen vollkeramische Lösungen mit modernen Materialien und kombinieren digitale Präzision mit zahntechnischem Feingefühl.",
@@ -75,7 +82,7 @@ export const services: Service[] = [
       "GC-Keramiken",
       "Zirkonoxid",
       "Vita Enamic",
-      "Telio CAD",
+      "PMMA",
       "PEEK",
     ],
     note: "Für anspruchsvolle ästhetische Fälle bieten wir nach Absprache auch eine persönliche Farbbestimmung im Labor oder in der Zahnarztpraxis an.",
@@ -85,9 +92,10 @@ export const services: Service[] = [
     icon: "crown",
     title: "Allgemeine Prothetik",
     short:
-      "Von Modellguss und Totalprothetik bis zu Fräs-, Geschiebe- und Teleskoptechnik – klassische Zahntechnik präzise und individuell umgesetzt.",
+      "Von Modellguss und Teilprothetik bis zu Fräs-, Geschiebe- und Teleskoptechnik – klassische Zahntechnik präzise und individuell umgesetzt.",
     h2: "Allgemeine Prothetik",
     subheadline: "Bewährte Zahntechnik für individuelle Versorgungen",
+    image: "/img/labor/komprimiert/Degumois-09112013_0969_1.jpg",
     body: [
       "Neben digitalen Verfahren beherrschen wir das gesamte Spektrum klassischer Zahntechnik.",
       "Unsere erfahrenen Zahntechnikerinnen und Zahntechniker fertigen festsitzende und herausnehmbare prothetische Lösungen individuell nach den Anforderungen der jeweiligen Versorgung.",
@@ -96,8 +104,9 @@ export const services: Service[] = [
       "Frästechnik",
       "Geschiebetechnik",
       "Teleskoptechnik",
-      "Modellgussprothetik",
-      "Totalprothetik",
+      "Modellguss und Teilprothetik",
+      "Valplast/Nylon",
+      "Totalprothetik mit individueller Anprobe am Patienten im Labor",
       "Gold-Verblendtechnik",
       "NEM-Verblendtechnik",
       "Lasertechnik mit Bego",
@@ -111,6 +120,7 @@ export const services: Service[] = [
       "Digitale Patientendaten und Intraoralscans direkt aus der Zahnarztpraxis ins Labor übertragen – für effiziente und durchgängige digitale Prozesse.",
     h2: "Digitaler Workflow für Zahnarztpraxen",
     subheadline: "Vom Intraoralscan direkt ins Dentallabor",
+    image: "/img/labor/komprimiert/digitaler_workflow_1.1.2.jpg",
     body: [
       "Digitale Prozesse ermöglichen eine schnelle und präzise Zusammenarbeit zwischen Zahnarztpraxis und Dentallabor.",
       "Sie können uns digitale Patientendaten und Intraoralscans direkt übermitteln. Wir übernehmen die weitere Datenverarbeitung, Konstruktion und zahntechnische Umsetzung.",
@@ -127,6 +137,18 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: "kieferorthopaedie",
+    icon: "tooth",
+    title: "Kieferorthopädie",
+    short: "Kieferorthopädische Apparaturen und individuelle Schienen.",
+    h2: "Kieferorthopädie",
+    homepage: false,
+    body: [],
+    points: [
+      "Individuelle Protrusionsschienen / Silenso",
+    ],
+  },
+  {
     slug: "beratung-service",
     icon: "support",
     title: "Beratung & Service",
@@ -134,6 +156,7 @@ export const services: Service[] = [
       "Farbbestimmung, Fallplanung, Kostenberechnung, Dokumentation und eigener Kurierdienst: persönliche Unterstützung weit über die reine Fertigung hinaus.",
     h2: "Beratung und zahntechnischer Service",
     subheadline: "Mehr als reine Fertigung",
+    image: "/img/labor/farbbestimmung_2.jpg",
     body: [
       "Zahntechnik funktioniert am besten als Zusammenarbeit.",
       "Deshalb unterstützen wir Zahnarztpraxen bereits bei der Planung komplexer Fälle und stehen während des gesamten Prozesses als persönlicher Ansprechpartner zur Verfügung.",

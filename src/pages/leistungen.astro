@@ -88,7 +88,7 @@ const faqSchema = {
             </div>
             <div class="svc-main">
               <h2>{s.h2}</h2>
-              <h3 class="svc-subhead">{s.subheadline}</h3>
+              {s.subheadline && <h3 class="svc-subhead">{s.subheadline}</h3>}
               {s.body.map((p) => <p class="svc-para">{p}</p>)}
               <ul class="svc-points">
                 {s.points.map((p) => (
