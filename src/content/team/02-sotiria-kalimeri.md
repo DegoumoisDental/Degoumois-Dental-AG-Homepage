@@ -4,4 +4,5 @@ role: Geschäftsleitung · Administration
 order: 2
 lead: true
 photo: /img/team/Roula.jpg
+email: s.kalimeri@degoumoisdental.ch
 ---
