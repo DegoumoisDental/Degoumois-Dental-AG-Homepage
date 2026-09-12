@@ -4,4 +4,5 @@ role: Zahntechnikermeister
 order: 10
 lead: false
 photo: /img/team/Martin_Svarovsky.jpg
+photoScale: 1.15
 ---
