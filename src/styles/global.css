@@ -39,6 +39,7 @@
   /* --- Typo --- */
   --font-display: "Manrope Variable", "Manrope", system-ui, sans-serif;
   --font-body: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+  --font-accent: "Playfair Display", Georgia, "Times New Roman", serif;
 
   /* --- Maße --- */
   --container: 1200px;
@@ -96,21 +97,14 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
 p { color: var(--ink-700); }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--brand-600);
-}
-.eyebrow::before {
-  content: "";
-  width: 28px; height: 2px;
-  background: var(--brand-400);
   display: inline-block;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--brand-600);
 }
 
 /* ---------------- Layout-Helfer ---------------- */
