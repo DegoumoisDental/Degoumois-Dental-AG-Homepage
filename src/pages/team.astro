@@ -15,9 +15,12 @@ const glRendered = await Promise.all(
   })
 );
 
-/** Foto-Ausrichtung: photoZoom (0–100) steuert den vertikalen Bildausschnitt */
-function photoStyle(photoZoom?: number) {
-  return photoZoom != null ? `object-position: center ${photoZoom}%` : undefined;
+/** Foto-Ausrichtung: photoZoom (0–100) = vertikaler Ausschnitt, photoScale = Zoom */
+function photoStyle(photoZoom?: number, photoScale?: number) {
+  const parts: string[] = [];
+  if (photoZoom != null) parts.push(`object-position: center ${photoZoom}%`);
+  if (photoScale != null) parts.push(`--photo-scale: ${photoScale}`);
+  return parts.length ? parts.join("; ") : undefined;
 }
 ---
 
@@ -45,7 +48,7 @@ function photoStyle(photoZoom?: number) {
             <article class="tcard tcard-lead" data-reveal data-delay={i + 1}>
               <div class="tcard-photo">
                 {data.photo
-                  ? <img src={data.photo} alt={data.name} style={photoStyle(data.photoZoom)} loading="lazy" />
+                  ? <img src={data.photo} alt={data.name} style={photoStyle(data.photoZoom, data.photoScale)} loading="lazy" />
                   : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
               </div>
               <div class="tcard-info">
@@ -98,7 +101,7 @@ function photoStyle(photoZoom?: number) {
             <article class="tcard" data-reveal data-delay={(i % 5) + 1}>
               <div class="tcard-photo">
                 {m.data.photo
-                  ? <img src={m.data.photo} alt={m.data.name} style={photoStyle(m.data.photoZoom)} loading="lazy" />
+                  ? <img src={m.data.photo} alt={m.data.name} style={photoStyle(m.data.photoZoom, m.data.photoScale)} loading="lazy" />
                   : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
               </div>
               <div class="tcard-info">
@@ -150,9 +153,11 @@ function photoStyle(photoZoom?: number) {
     object-fit: cover;
     object-position: center top;
     filter: grayscale(1);
+    transform: scale(var(--photo-scale, 1));
+    transform-origin: center top;
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s var(--ease);
   }
-  .tcard:hover .tcard-photo img { transform: scale(1.05); filter: grayscale(0); }
+  .tcard:hover .tcard-photo img { transform: scale(calc(var(--photo-scale, 1) * 1.05)); filter: grayscale(0); }
   @media (prefers-reduced-motion: reduce) {
     .tcard-photo img { transition: none; }
   }
