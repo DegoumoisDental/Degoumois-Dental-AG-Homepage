@@ -23,6 +23,7 @@ export const site = {
   phone: "+41 32 625 48 48",
   phoneDisplay: "032 625 48 48",
   email: "info@degoumoisdental.ch",
+  emailHin: "degoumoisdental@vzls-hin.ch",
   openingHours: [
     { days: "Mo – Fr", hours: "07:30 – 12:00, 13:00 – 17:00" },
   ],

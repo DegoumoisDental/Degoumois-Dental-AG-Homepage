@@ -1,0 +1,142 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Icon from "../components/Icon.astro";
+import { site } from "../site";
+
+const laborauftrag = "/img/Degoumois_Laborauftrag_2019.pdf";
+
+const portals = [
+  {
+    name: "DS Core",
+    desc: "Dentsply Sirona Cloud – Fälle, Scans und Daten sicher übermitteln.",
+    url: "https://r2.dscore.com/#/login",
+  },
+  {
+    name: "Medit",
+    desc: "Medit Link – Intraoralscans direkt aus der Praxis mit uns teilen.",
+    url: "https://www.meditlink.com/login",
+  },
+  {
+    name: "3Shape",
+    desc: "3Shape Communicate – digitale Abformungen und Aufträge senden.",
+    url: "https://portal.3shapecommunicate.com/login",
+  },
+  {
+    name: "HIN",
+    desc: "Health Info Net – verschlüsselter Versand sensibler Patientendaten.",
+    url: "https://www.hin.ch/de/index.cfm",
+    mail: site.emailHin,
+  },
+];
+---
+
+<BaseLayout
+  metaTitle="Auftrag erteilen | Degoumois Dental"
+  description="Übermitteln Sie uns Ihren zahntechnischen Auftrag – digital über DS Core, Medit, 3Shape oder HIN, oder klassisch per Laborauftragsformular."
+>
+  <PageHeader
+    eyebrow="Auftrag"
+    title="Auftrag erteilen"
+    lead="Übermitteln Sie uns Ihre Fälle, Scans und Aufträge bequem über Ihr gewohntes Portal. Für jeden Auftrag steht zusätzlich unser Laborauftragsformular als PDF bereit."
+    image="/img/labor/farbbestimmung.jpg"
+    imageAlt="Digitale Auftragsübermittlung im Dentallabor Degoumois Dental in Solothurn"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow mx-auto" style="justify-content:center;">Digitale Übermittlung</p>
+        <h2 class="text-center">Ihre Portale zu Degoumois Dental</h2>
+        <p class="lead mx-auto text-center" style="max-width:56ch;">
+          Wählen Sie das Portal, mit dem Ihre Praxis arbeitet. Die Links führen direkt zum
+          Login des jeweiligen Anbieters.
+        </p>
+      </div>
+
+      <div class="portal-grid">
+        {portals.map((p, i) => (
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="portal-card card"
+            data-reveal
+            data-delay={(i % 4) + 1}
+          >
+            <span class="portal-name">{p.name}</span>
+            <p class="portal-desc">{p.desc}</p>
+            {p.mail && (
+              <span class="portal-mail">
+                <Icon name="mail" /> {p.mail}
+              </span>
+            )}
+            <span class="portal-link">Portal öffnen <Icon name="arrow" /></span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Laborauftrag PDF -->
+      <div class="laborauftrag card" data-reveal>
+        <div class="la-text">
+          <h3>Laborauftragsformular</h3>
+          <p>
+            Für alle Aufträge – digital oder klassisch: Laden Sie unser Laborauftragsformular
+            herunter, füllen Sie es aus und legen Sie es Ihrem Auftrag bei.
+          </p>
+        </div>
+        <a href={laborauftrag} target="_blank" rel="noopener" class="btn btn-primary" download>
+          <Icon name="arrow" /> Laborauftrag (PDF)
+        </a>
+      </div>
+
+      <p class="auftrag-contact" data-reveal>
+        Fragen zur Übermittlung? Rufen Sie uns an unter
+        <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phoneDisplay}</a>
+        oder schreiben Sie an
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-head { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin-bottom: 3rem; }
+
+  .portal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .portal-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    padding: 1.75rem; text-decoration: none; color: inherit;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+  .portal-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--brand-200); }
+  .portal-name { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; color: var(--accent-deep); }
+  .portal-desc { color: var(--ink-500); font-size: 0.96rem; flex: 1; }
+  .portal-mail {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.9rem; color: var(--brand-700); font-weight: 600; margin-top: 0.25rem;
+  }
+  .portal-mail :global(svg) { width: 1em; height: 1em; }
+  .portal-link {
+    display: inline-flex; align-items: center; gap: 0.4em; margin-top: 0.75rem;
+    font-family: var(--font-display); font-weight: 600; color: var(--brand-600); font-size: 0.95rem;
+  }
+  .portal-link :global(svg) { width: 1.05em; height: 1.05em; transition: transform 0.25s var(--ease); }
+  .portal-card:hover .portal-link :global(svg) { transform: translateX(4px); }
+
+  .laborauftrag {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+    margin-top: 1.25rem; padding: 1.75rem 2rem;
+    background: var(--surface-2);
+  }
+  .la-text h3 { font-size: 1.2rem; margin-bottom: 0.35rem; }
+  .la-text p { color: var(--ink-500); max-width: 60ch; }
+
+  .auftrag-contact { text-align: center; margin-top: 2.5rem; color: var(--ink-500); }
+  .auftrag-contact a { color: var(--brand-600); font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .portal-grid { grid-template-columns: 1fr; }
+    .laborauftrag { flex-direction: column; align-items: flex-start; }
+  }
+</style>

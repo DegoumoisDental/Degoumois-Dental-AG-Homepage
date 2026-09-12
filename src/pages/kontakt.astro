@@ -15,6 +15,8 @@ const mapsQuery = encodeURIComponent(`${site.legalName}, ${site.address.street},
     eyebrow="Kontakt"
     title="So erreichen Sie uns"
     lead="Wir freuen uns auf Ihren Auftrag, Ihre Fragen und ein persönliches Kennenlernen – direkt gegenüber dem Bahnhof Solothurn Westbahnhof."
+    image="/img/labor/degoumois_haus_aussen.jpg"
+    imageAlt="Gebäude der Degoumois Dental AG in Solothurn"
   />
 
   <section class="section">
@@ -40,7 +42,10 @@ const mapsQuery = encodeURIComponent(`${site.legalName}, ${site.address.street},
             <span class="info-icon"><Icon name="mail" /></span>
             <div>
               <h3>E-Mail</h3>
-              <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+              <p>
+                <a href={`mailto:${site.email}`}>{site.email}</a><br />
+                <a href={`mailto:${site.emailHin}`}>{site.emailHin}</a> <span class="muted">(HIN)</span>
+              </p>
             </div>
           </li>
           <li>
