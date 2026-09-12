@@ -15,12 +15,6 @@ const glRendered = await Promise.all(
   })
 );
 
-/** Rolle aufteilen: Teil vor dem ersten "·"/"," = Badge (Qualifikation), Rest = Spezialgebiet */
-function splitRole(role: string) {
-  const parts = role.split(/[·,]/).map((p) => p.trim()).filter(Boolean);
-  return { badge: parts[0] ?? role, desc: parts.slice(1).join(" · ") };
-}
-
 /** Foto-Ausrichtung: photoZoom (0–100) steuert den vertikalen Bildausschnitt */
 function photoStyle(photoZoom?: number) {
   return photoZoom != null ? `object-position: center ${photoZoom}%` : undefined;
@@ -47,18 +41,16 @@ function photoStyle(photoZoom?: number) {
       </div>
       <div class="tgrid tgrid-gl">
         {glRendered.map(({ data, Content, hasBio }, i) => {
-          const { badge, desc } = splitRole(data.role);
           return (
             <article class="tcard tcard-lead" data-reveal data-delay={i + 1}>
               <div class="tcard-photo">
                 {data.photo
                   ? <img src={data.photo} alt={data.name} style={photoStyle(data.photoZoom)} loading="lazy" />
                   : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
-                <span class="tcard-badge">{badge}</span>
               </div>
               <div class="tcard-info">
                 <h3 class="tcard-name">{data.name}</h3>
-                {desc && <p class="tcard-desc">{desc}</p>}
+                <p class="tcard-desc">{data.role}</p>
                 {data.email && (
                   <a href={`mailto:${data.email}`} class="tcard-email">
                     <Icon name="mail" /> {data.email}
@@ -102,18 +94,16 @@ function photoStyle(photoZoom?: number) {
       </div>
       <div class="tgrid tgrid-staff">
         {staff.map((m, i) => {
-          const { badge, desc } = splitRole(m.data.role);
           return (
             <article class="tcard" data-reveal data-delay={(i % 5) + 1}>
               <div class="tcard-photo">
                 {m.data.photo
                   ? <img src={m.data.photo} alt={m.data.name} style={photoStyle(m.data.photoZoom)} loading="lazy" />
                   : <div class="photo-fallback"><Icon name="user" class="fallback-icon" /></div>}
-                <span class="tcard-badge">{badge}</span>
               </div>
               <div class="tcard-info">
                 <h3 class="tcard-name">{m.data.name}</h3>
-                {desc && <p class="tcard-desc">{desc}</p>}
+                <p class="tcard-desc">{m.data.role}</p>
                 {m.data.email && (
                   <a href={`mailto:${m.data.email}`} class="tcard-email" title={m.data.email}>
                     <Icon name="mail" /> E-Mail
@@ -167,22 +157,6 @@ function photoStyle(photoZoom?: number) {
     .tcard-photo img { transition: none; }
   }
 
-  .tcard-badge {
-    position: absolute;
-    top: 0.85rem; left: 0.85rem;
-    max-width: calc(100% - 1.7rem);
-    background: rgba(255, 255, 255, 0.94);
-    color: var(--brand-700);
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.72rem;
-    letter-spacing: 0.01em;
-    line-height: 1.25;
-    padding: 0.4em 0.75em;
-    border-radius: 999px;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 4px 12px rgba(8, 41, 61, 0.15);
-  }
 
   /* Info-Footer (solides Blau) */
   .tcard-info {
