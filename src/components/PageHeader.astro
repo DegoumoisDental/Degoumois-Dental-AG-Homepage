@@ -1,12 +1,12 @@
 ---
-interface Props { eyebrow?: string; title: string; lead?: string; image?: string; imageAlt?: string; }
-const { eyebrow, title, lead, image } = Astro.props;
+interface Props { eyebrow?: string; title: string; lead?: string; image?: string; imageAlt?: string; imagePos?: string; }
+const { eyebrow, title, lead, image, imagePos = "center" } = Astro.props;
 ---
 <header class="page-header">
   <div
     class="ph-bg"
     aria-hidden="true"
-    style={image ? `--ph-img: url('${image}')` : undefined}
+    style={image ? `--ph-img: url('${image}'); --ph-pos: ${imagePos}` : undefined}
   ></div>
   <div class="container ph-inner">
     {eyebrow && <p class="ph-eyebrow" data-reveal>{eyebrow}</p>}
@@ -22,7 +22,7 @@ const { eyebrow, title, lead, image } = Astro.props;
     position: absolute; inset: 0; z-index: 0;
     background:
       linear-gradient(155deg, rgba(12,58,85,0.88) 0%, rgba(12,100,146,0.75) 55%, rgba(8,41,61,0.92) 100%),
-      var(--ph-img, none) center / cover no-repeat,
+      var(--ph-img, none) var(--ph-pos, center) / cover no-repeat,
       linear-gradient(155deg, #0c3a55 0%, #0c6492 55%, #08293d 100%);
   }
   .ph-inner { position: relative; z-index: 1; max-width: 760px; }
