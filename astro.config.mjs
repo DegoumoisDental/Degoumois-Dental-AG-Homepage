@@ -20,6 +20,11 @@ export default defineConfig({
       changefreq: "monthly",
       priority: 0.7,
       lastmod: new Date(),
+      // Admin-/API-/Test-Routen nicht in die Sitemap aufnehmen
+      filter: (page) =>
+        !page.includes("/keystatic") &&
+        !page.includes("/api/") &&
+        !page.includes("/admin"),
     }),
   ],
   build: {

@@ -6,7 +6,7 @@ import { site } from "../site";
   <!-- Header-Bild (komprimiert) mit dunklem Overlay für Textkontrast -->
   <div class="hero-media" aria-hidden="true">
     <div class="hero-gradient"></div>
-    <img class="hero-img" src="/img/labor/hero.jpg" alt="" fetchpriority="high" decoding="async" />
+    <img class="hero-img" src="/img/labor/hero.jpg" alt="Digitale Zahntechnik im Dentallabor der Degoumois Dental AG in Solothurn – 3D-Druck von Dentalmodellen" fetchpriority="high" decoding="async" />
     <div class="hero-overlay"></div>
   </div>
 
@@ -14,19 +14,25 @@ import { site } from "../site";
     <div class="hero-content">
       <p class="hero-eyebrow" data-reveal>Dentallabor · Solothurn · seit {site.founded}</p>
       <h1 data-reveal data-delay="1">
-        Mehr als <span class="grad-text">Zahntechnik.</span>
+        Dentallabor in Solothurn für <span class="grad-text">moderne Zahntechnik</span>
       </h1>
       <p class="hero-lead" data-reveal data-delay="2">
-        Wir vereinen Präzision, moderne Technologie und individuelle Lösungen für
-        hochwertigen Zahnersatz – mit einem starken Netzwerk und spürbarer
-        Entlastung im Praxisalltag.
+        Wir verbinden präzises Handwerk mit digitaler Zahntechnik und individueller
+        Beratung. Von CAD/CAM und Implantatprothetik über Vollkeramik bis zur klassischen
+        Prothetik entstehen bei uns hochwertige zahntechnische Lösungen – präzise gefertigt
+        in Solothurn.
+      </p>
+      <p class="hero-lead hero-lead-sub" data-reveal data-delay="2">
+        Mit mehr als 50 Jahren Erfahrung, modernen digitalen Workflows und persönlichem
+        Service unterstützen wir Zahnarztpraxen zuverlässig von der Planung bis zur fertigen
+        Restauration.
       </p>
       <div class="hero-actions" data-reveal data-delay="3">
         <a href="/leistungen" class="btn btn-light">
           Unsere Leistungen
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="/kontakt" class="btn btn-primary">Auftrag erteilen</a>
+        <a href="/kontakt" class="btn btn-primary">Auftrag &amp; Kontakt</a>
       </div>
       <a href="#intro" class="hero-scroll" aria-label="Weiter scrollen" data-reveal data-delay="4">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -89,7 +95,12 @@ import { site } from "../site";
   .hero-lead {
     font-size: clamp(1.1rem, 1.7vw, 1.4rem);
     color: rgba(255,255,255,0.9);
-    max-width: 56ch; margin-bottom: 2.25rem;
+    max-width: 56ch; margin-bottom: 1.1rem;
+  }
+  .hero-lead-sub {
+    font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 2.25rem;
   }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
 

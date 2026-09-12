@@ -4,6 +4,7 @@ import PageHeader from "../components/PageHeader.astro";
 import PartnerStrip from "../components/PartnerStrip.astro";
 import Icon from "../components/Icon.astro";
 import { services } from "../data/services";
+import { site } from "../site";
 
 const serviceListSchema = {
   "@context": "https://schema.org",
@@ -11,23 +12,77 @@ const serviceListSchema = {
   itemListElement: services.map((s, i) => ({
     "@type": "ListItem",
     position: i + 1,
-    name: s.title,
-    description: s.description,
+    name: s.h2,
+    description: s.body.join(" "),
+    url: `${site.url}/leistungen#${s.slug}`,
+  })),
+};
+
+const advantages = [
+  "mehr als 50 Jahre Erfahrung",
+  "Fertigung in Solothurn",
+  "moderne CAD/CAM-Technologie",
+  "3D-Druck",
+  "mehr als zehn Implantatsysteme",
+  "persönliche Ansprechpartner",
+  "eigener Kurierdienst",
+  "digitale Workflows",
+  "individuelle Fallplanung",
+  "hohe Flexibilität",
+];
+
+const faqs = [
+  {
+    q: "Wo befindet sich die Degoumois Dental AG?",
+    a: "Unser Dentallabor befindet sich an der Westbahnhofstrasse 1 in 4500 Solothurn. Von hier aus betreuen wir Zahnarztpraxen insbesondere in der Region Solothurn und Bern.",
+  },
+  {
+    q: "Können Intraoralscans direkt an das Labor übermittelt werden?",
+    a: "Ja. Wir arbeiten mit digitalen Workflows und können digitale Patientendaten sowie Intraoralscans verarbeiten.",
+  },
+  {
+    q: "Bietet Degoumois Dental Implantatprothetik an?",
+    a: "Ja. Wir fertigen individuelle implantatprothetische Lösungen und arbeiten mit mehr als zehn verschiedenen Implantatsystemen.",
+  },
+  {
+    q: "Kann die Zahnfarbe direkt im Labor bestimmt werden?",
+    a: "Ja. Farbbestimmungen können nach Absprache bei uns im Labor oder in der Zahnarztpraxis durchgeführt werden.",
+  },
+  {
+    q: "Gibt es einen Kurierdienst?",
+    a: "Ja. Degoumois Dental verfügt über einen eigenen Kurierdienst für eine zuverlässige und termingerechte Zusammenarbeit in der Region Solothurn und Bern.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
   })),
 };
 ---
 
 <BaseLayout
-  title="Leistungen & Fachgebiete"
-  description="Das Leistungsspektrum der Degoumois Dental AG: CAD/CAM, Implantatprothetik, Vollkeramik, Prothetik, digitaler Workflow und umfassender Service – Zahntechnik aus Solothurn."
+  metaTitle="Zahntechnik & Zahnersatz in Solothurn | Degoumois Dental"
+  description="CAD/CAM, Implantatprothetik, Vollkeramik, Prothetik, 3D-Druck und digitale Workflows: Entdecken Sie die Leistungen unseres Dentallabors in Solothurn."
 >
   <PageHeader
     eyebrow="Fachgebiete"
-    title="Unser Leistungsspektrum"
-    lead="Von der digitalen Konstruktion bis zur fertigen Restauration – Präzision, Ästhetik und moderne Zahntechnik aus einer Hand."
+    title="Zahntechnik und Zahnersatz aus Solothurn"
+    lead="Von der digitalen Planung bis zur fertigen Restauration bietet die Degoumois Dental AG ein umfassendes Spektrum moderner Zahntechnik."
     image="/img/labor/farbbestimmung.jpg"
-    imageAlt="Farbbestimmung einer Zahnkrone bei Degoumois Dental"
-  />
+    imageAlt="Farbbestimmung einer Zahnkrone im Dentallabor Degoumois Dental in Solothurn"
+  >
+    <p class="ph-lead">
+      In unserem Dentallabor in Solothurn verbinden wir mehr als 50 Jahre zahntechnische
+      Erfahrung mit CAD/CAM, 3D-Druck und digitalen Workflows. So entstehen individuelle
+      Lösungen für Zahnarztpraxen und ihre Patientinnen und Patienten – mit hohen Ansprüchen
+      an Passung, Funktion und Ästhetik.
+    </p>
+  </PageHeader>
 
   <section class="section">
     <div class="container">
@@ -39,13 +94,15 @@ const serviceListSchema = {
               <div class="svc-icon"><Icon name={s.icon} /></div>
             </div>
             <div class="svc-main">
-              <h2>{s.title}</h2>
-              <p class="lead">{s.description}</p>
+              <h2>{s.h2}</h2>
+              <h3 class="svc-subhead">{s.subheadline}</h3>
+              {s.body.map((p) => <p class="svc-para">{p}</p>)}
               <ul class="svc-points">
                 {s.points.map((p) => (
                   <li><Icon name="check" class="chk" /> {p}</li>
                 ))}
               </ul>
+              {s.note && <p class="svc-note">{s.note}</p>}
             </div>
           </article>
         ))}
@@ -53,7 +110,33 @@ const serviceListSchema = {
     </div>
   </section>
 
-  <PartnerStrip title="Systeme & Materialien" subtitle="Wir verarbeiten ausschliesslich Werkstoffe, die höchste zahnmedizinische Standards erfüllen." />
+  <PartnerStrip title="Systeme & Materialien" subtitle="Wir verarbeiten Werkstoffe und Systeme etablierter Hersteller, die hohe zahnmedizinische Standards erfüllen – passend zur jeweiligen zahntechnischen Indikation." />
+
+  <!-- Warum Degoumois -->
+  <section class="section why">
+    <div class="container why-grid">
+      <div data-reveal>
+        <p class="eyebrow">Ihr zahntechnischer Partner</p>
+        <h2>Warum Degoumois Dental?</h2>
+      </div>
+      <div data-reveal data-delay="1">
+        <p class="lead">
+          Seit 1972 steht die Degoumois Dental AG für hochwertige Zahntechnik aus Solothurn.
+          Unsere Stärke liegt in der Verbindung aus langjähriger Erfahrung, moderner digitaler
+          Technologie und persönlicher Zusammenarbeit.
+        </p>
+        <p>
+          Wir verstehen uns nicht einfach als Produktionsbetrieb, sondern als zahntechnischer
+          Partner für Zahnarztpraxen.
+        </p>
+        <ul class="why-points">
+          {advantages.map((a) => (
+            <li><Icon name="check" class="chk" /> {a}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <section class="section service-band">
     <div class="sb-photo" aria-hidden="true">
@@ -64,19 +147,38 @@ const serviceListSchema = {
       <h2 class="mx-auto" style="max-width:20ch;">Erfahrung und Kompetenz seit mehr als 50 Jahren</h2>
       <ul class="service-points">
         <li><Icon name="check" class="chk" /> Erreichbarkeit das ganze Jahr hindurch</li>
-        <li><Icon name="check" class="chk" /> Eigener Kurierdienst – termingerecht</li>
+        <li><Icon name="check" class="chk" /> Eigener Kurierdienst für die Region Solothurn und Bern</li>
         <li><Icon name="check" class="chk" /> Professioneller Patientenraum mit Wartebereich</li>
-        <li><Icon name="check" class="chk" /> Varianten & detaillierte Kostenberechnungen</li>
-        <li><Icon name="check" class="chk" /> Planbesprechungen mit Zahnärzten</li>
+        <li><Icon name="check" class="chk" /> Varianten und detaillierte Kostenberechnungen</li>
+        <li><Icon name="check" class="chk" /> Planbesprechungen mit Zahnarztpraxen</li>
         <li><Icon name="check" class="chk" /> Flexibel auch bei kurzfristigen Abgabeterminen</li>
         <li><Icon name="check" class="chk" /> Farbbestimmung im Labor oder in der Praxis</li>
-        <li><Icon name="check" class="chk" /> 3D-Implantatplanung & digitale Falldokumentation</li>
+        <li><Icon name="check" class="chk" /> 3D-Implantatplanung und digitale Falldokumentation</li>
       </ul>
       <a href="/kontakt" class="btn btn-primary" style="margin-top:2.5rem;">Auftrag erteilen <Icon name="arrow" /></a>
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section faq-section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow mx-auto" style="justify-content:center;">FAQ</p>
+        <h2 class="mx-auto text-center" style="max-width:24ch;">Häufige Fragen zur Zusammenarbeit mit unserem Dentallabor</h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <article class="faq-item" data-reveal data-delay={(i % 3) + 1}>
+            <h3 class="faq-q">{f.q}</h3>
+            <p class="faq-a">{f.a}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <script type="application/ld+json" set:html={JSON.stringify(serviceListSchema)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
 </BaseLayout>
 
 <style>
@@ -89,10 +191,18 @@ const serviceListSchema = {
     width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center;
     color: #fff; background: linear-gradient(135deg, var(--brand-500), var(--brand-800)); font-size: 32px;
   }
-  .svc-main h2 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); margin-bottom: 0.75rem; }
+  .svc-main h2 { font-size: clamp(1.5rem, 2.6vw, 2.1rem); margin-bottom: 0.35rem; }
+  .svc-subhead { font-size: 1.05rem; font-weight: 600; color: var(--brand-600); margin-bottom: 1rem; letter-spacing: -0.005em; }
+  .svc-para { color: var(--ink-700); margin-bottom: 0.7rem; max-width: 60ch; }
   .svc-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 1.5rem; margin-top: 1.5rem; }
   .svc-points li, .service-points li { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--ink-700); font-weight: 500; }
+  .svc-note { margin-top: 1.1rem; font-size: 0.95rem; color: var(--ink-500); font-style: italic; max-width: 60ch; }
   :global(.chk) { width: 20px; height: 20px; color: var(--brand-500); flex-shrink: 0; margin-top: 3px; }
+
+  /* Warum Degoumois */
+  .why-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .why-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 1.5rem; margin-top: 1.5rem; }
+  .why-points li { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--ink-700); font-weight: 500; }
 
   .service-band {
     position: relative; overflow: hidden;
@@ -110,9 +220,22 @@ const serviceListSchema = {
     display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem 2rem;
     max-width: 760px; margin: 2.5rem auto 0; text-align: left;
   }
+
+  /* FAQ */
+  .faq-section { background: var(--surface-2); border-top: 1px solid var(--line); }
+  .section-head { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin-bottom: 3rem; }
+  .faq-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem 2.5rem; max-width: 960px; margin-inline: auto; }
+  .faq-item { padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+  .faq-q { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-deep); }
+  .faq-a { color: var(--ink-600, var(--ink-700)); font-size: 0.97rem; }
+
+  @media (max-width: 900px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .faq-list { grid-template-columns: 1fr; }
+  }
   @media (max-width: 700px) {
     .svc-row { grid-template-columns: 1fr; }
     .svc-aside { flex-direction: row; align-items: center; }
-    .svc-points, .service-points { grid-template-columns: 1fr; }
+    .svc-points, .service-points, .why-points { grid-template-columns: 1fr; }
   }
 </style>

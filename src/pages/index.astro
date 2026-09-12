@@ -19,7 +19,11 @@ const stats = [
 ];
 ---
 
-<BaseLayout hero>
+<BaseLayout
+  hero
+  metaTitle="Dentallabor Solothurn | Degoumois Dental AG"
+  description="Degoumois Dental AG – Ihr Dentallabor in Solothurn seit 1972. CAD/CAM, Implantatprothetik, Vollkeramik, digitale Zahntechnik und persönlicher Service."
+>
   <Hero />
 
   <!-- Intro -->
@@ -31,15 +35,23 @@ const stats = [
       </div>
       <div data-reveal data-delay="1">
         <p class="lead">
-          Wir sind ein innovatives, leistungsstarkes und kundenorientiertes Dentallabor.
-          Unsere Arbeiten zeichnen sich durch gutes Handwerk, hohe Präzision und grosse
-          Flexibilität aus.
+          Die Degoumois Dental AG ist ein modernes Dentallabor im Herzen von Solothurn.
+          Seit 1972 fertigen wir individuellen Zahnersatz mit hohen Ansprüchen an Präzision,
+          Funktion und natürliche Ästhetik.
         </p>
         <p>
-          Qualität, kompetente Fachberatung und Zuverlässigkeit schaffen Vertrauen für eine
-          partnerschaftliche Zusammenarbeit. Unter der Führung des Gründers Georges Degoumois
-          hat sich das Labor seit 1972 stetig weiterentwickelt – 2013 übernahm Martin Svarovsky
-          das Unternehmen und führt es mit demselben Anspruch in die digitale Zukunft.
+          Unser Leistungsspektrum verbindet traditionelle Zahntechnik mit digitalen
+          Technologien wie CAD/CAM, 3D-Druck, Intraoral-Scanning und digitaler
+          Implantatplanung.
+        </p>
+        <p>
+          Für Zahnarztpraxen bedeutet das: kompetente Ansprechpartner, kurze
+          Kommunikationswege, hohe Flexibilität und einen Partner, der auch komplexe
+          zahntechnische Fälle persönlich begleitet.
+        </p>
+        <p>
+          Unser eigener Kurierdienst sorgt zusätzlich für eine zuverlässige und
+          termingerechte Zusammenarbeit in der Region Solothurn und Bern.
         </p>
         <a href="/ueber-uns" class="btn btn-ghost" style="margin-top:1.5rem;">
           Mehr über uns <Icon name="arrow" />
@@ -58,8 +70,9 @@ const stats = [
           <span class="svc-title-muted">aus einer präzisen Hand.</span>
         </h2>
         <p class="svc-sub">
-          Von der digitalen Konstruktion bis zur fertigen Restauration – wir vereinen
-          Präzision, Ästhetik und moderne Technologie.
+          Von der digitalen Planung bis zur fertigen Restauration: Bei Degoumois Dental
+          verbinden wir zahntechnische Erfahrung mit moderner Technologie, präziser Fertigung
+          und persönlicher Beratung.
         </p>
       </div>
       <div class="svc-grid">
@@ -107,10 +120,15 @@ const stats = [
         <p class="eyebrow">Unsere Werte</p>
         <h2>Vertrauen in unsere Kompetenz ist die Basis für erstklassige Qualität.</h2>
         <p>
-          Alle eingesetzten Werkstoffe erfüllen höchste zahnmedizinische Standards. Jeder
-          Auftrag wird mit Präzision und Engagement ausgeführt – das Ergebnis ist ein
-          qualitativ hochwertiges, zahntechnisches Unikat, das in Ästhetik und Funktion
-          keine Wünsche offen lässt.
+          Hochwertiger Zahnersatz entsteht für uns aus dem Zusammenspiel von Erfahrung,
+          Präzision, geeigneten Materialien und einer engen Zusammenarbeit zwischen
+          Zahnarztpraxis und Dentallabor.
+        </p>
+        <p>
+          Alle von uns eingesetzten Werkstoffe erfüllen hohe zahnmedizinische Standards.
+          Jeder Auftrag wird individuell geplant und von unserem erfahrenen Team mit grosser
+          Sorgfalt umgesetzt. So entstehen zahntechnische Einzelanfertigungen, bei denen
+          Funktion, Passung und Ästhetik gleichermassen im Mittelpunkt stehen.
         </p>
         <a href="/kontakt" class="btn btn-primary" style="margin-top:1.5rem;">
           Zusammenarbeit starten <Icon name="arrow" />
@@ -152,7 +170,7 @@ const stats = [
     </div>
     <div class="container cta-inner" data-reveal style="position:relative;z-index:1;">
       <h2>Bereit für eine reibungslose Zusammenarbeit?</h2>
-      <p>Senden Sie uns Ihren Auftrag oder vereinbaren Sie eine persönliche Beratung – wir freuen uns auf Sie.</p>
+      <p>Senden Sie uns Ihren nächsten Auftrag oder besprechen Sie einen Fall direkt mit unserem Team. Wir beraten Sie persönlich und finden gemeinsam die passende zahntechnische Lösung.</p>
       <div class="cta-actions">
         <a href={`tel:${site.phone.replace(/\s/g,"")}`} class="btn btn-light"><Icon name="phone" /> {site.phoneDisplay}</a>
         <a href="/kontakt" class="btn btn-primary">Kontakt aufnehmen <Icon name="arrow" /></a>

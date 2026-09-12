@@ -1,66 +1,154 @@
 /** Fachgebiete / Leistungen – zentral gepflegt, genutzt auf Start- und Leistungsseite. */
 export interface Service {
   slug: string;
-  title: string;
-  short: string;
-  description: string;
-  points: string[];
   icon: string; // Key für das Icon-Set in components/Icon.astro
+  title: string; // Card-Titel (Startseite)
+  short: string; // Card-Text (Startseite)
+  h2: string; // Überschrift der Leistungssektion
+  subheadline: string; // Subheadline (h3) der Leistungssektion
+  body: string[]; // Fliesstext der Leistungssektion (Absätze)
+  points: string[]; // Systeme / Materialien / Leistungen
+  note?: string; // optionaler Hinweis nach der Liste
 }
 
 export const services: Service[] = [
   {
     slug: "cad-cam",
-    title: "CAD/CAM-Technologie",
-    short: "Hochpräzise digitale Konstruktion und Fertigung.",
-    description:
-      "Modernste CAD/CAM-Technologie für Zirkon, Aluminiumoxid und Titan – auf mehreren Systemen für maximale Flexibilität.",
-    points: ["Etkon / Straumann", "Zenotec Wieland", "inLab Sirona", "3D-Druck (NextDent 5100, Anycubic)"],
     icon: "cube",
+    title: "CAD/CAM-Technologie",
+    short:
+      "Digitale Konstruktion und präzise Fertigung von zahntechnischen Restaurationen aus Zirkon, Aluminiumoxid, Titan und weiteren modernen Werkstoffen.",
+    h2: "CAD/CAM-Zahntechnik",
+    subheadline: "Digitale Konstruktion trifft präzise Fertigung",
+    body: [
+      "CAD/CAM ist ein zentraler Bestandteil unserer digitalen Zahntechnik. Zahntechnische Restaurationen werden digital konstruiert und mit modernen Fertigungsverfahren präzise umgesetzt.",
+      "Je nach Indikation verarbeiten wir unter anderem Zirkon, Aluminiumoxid, Titan sowie verschiedene dentale Kunststoffe.",
+      "Dabei arbeiten wir mit mehreren Systemen, damit wir flexibel auf unterschiedliche Anforderungen und bestehende Praxis-Workflows reagieren können.",
+    ],
+    points: [
+      "Etkon / Straumann",
+      "Zenotec Wieland",
+      "inLab Sirona",
+      "3D-Druck mit NextDent 5100 und Anycubic",
+      "digitale Konstruktion",
+      "digitale Datenverarbeitung",
+    ],
   },
   {
     slug: "implantatprothetik",
-    title: "Implantatprothetik",
-    short: "Kompetenz mit über 10 Implantatsystemen.",
-    description:
-      "Von individuellen Abutments bis zur komplexen implantatgetragenen Versorgung – kompetent über alle gängigen Systeme hinweg.",
-    points: ["Custom Abutments", "Straumann, Nobel Biocare, Zeramex", "Keramikimplantate", "3D-Implantatplanung"],
     icon: "implant",
+    title: "Implantatprothetik",
+    short:
+      "Individuelle implantatgetragene Lösungen, Custom Abutments und komplexe Versorgungen auf mehr als zehn verschiedenen Implantatsystemen.",
+    h2: "Implantatprothetik",
+    subheadline: "Individuelle Lösungen für implantatgetragenen Zahnersatz",
+    body: [
+      "Implantatprothetische Versorgungen verlangen präzise Planung, hohe Passgenauigkeit und eine enge Abstimmung zwischen Zahnarztpraxis und Dentallabor.",
+      "Wir begleiten implantatprothetische Fälle von der Planung bis zur fertigen Versorgung und arbeiten mit mehr als zehn Implantatsystemen.",
+      "Unser Spektrum reicht von individuellen Abutments bis zu komplexeren implantatgetragenen prothetischen Lösungen.",
+    ],
+    points: [
+      "Custom Abutments",
+      "implantatgetragene Restaurationen",
+      "Straumann",
+      "Nobel Biocare",
+      "Zeramex",
+      "weitere etablierte Implantatsysteme",
+      "Keramikimplantate",
+      "3D-Implantatplanung",
+    ],
   },
   {
     slug: "vollkeramik",
-    title: "Vollkeramik & Ästhetik",
-    short: "Natürliche Ästhetik mit modernsten Keramiken.",
-    description:
-      "Vollkeramische Restaurationen, die in Ästhetik und Funktion keine Wünsche offen lassen.",
-    points: ["IPS e.max (Ivoclar) & GC", "Zirkonoxid", "Vita Enamic", "Telio CAD, PEEK"],
     icon: "tooth",
+    title: "Vollkeramik & Ästhetik",
+    short:
+      "Hochwertige vollkeramische Restaurationen mit Fokus auf natürliche Zahnästhetik, präzise Passung und zuverlässige Funktion.",
+    h2: "Vollkeramik & ästhetische Zahntechnik",
+    subheadline: "Natürlich wirkender Zahnersatz mit modernen Keramiken",
+    body: [
+      "Bei ästhetischen Restaurationen kommt es auf jedes Detail an. Zahnform, Oberflächenstruktur, Transluzenz und Farbwirkung müssen harmonisch zusammenspielen.",
+      "Wir fertigen vollkeramische Lösungen mit modernen Materialien und kombinieren digitale Präzision mit zahntechnischem Feingefühl.",
+    ],
+    points: [
+      "IPS e.max von Ivoclar",
+      "GC-Keramiken",
+      "Zirkonoxid",
+      "Vita Enamic",
+      "Telio CAD",
+      "PEEK",
+    ],
+    note: "Für anspruchsvolle ästhetische Fälle bieten wir nach Absprache auch eine persönliche Farbbestimmung im Labor oder in der Zahnarztpraxis an.",
   },
   {
     slug: "prothetik",
-    title: "Allgemeine Prothetik",
-    short: "Bewährtes Handwerk in allen Disziplinen.",
-    description:
-      "Das ganze Spektrum klassischer Zahntechnik – präzise umgesetzt von erfahrenen Spezialistinnen und Spezialisten.",
-    points: ["Fräs-, Geschiebe- & Teleskoptechnik", "Modellguss- & Totalprothetik", "Gold- & NEM-Verblendtechnik", "Lasertechnik (Bego)"],
     icon: "crown",
+    title: "Allgemeine Prothetik",
+    short:
+      "Von Modellguss und Totalprothetik bis zu Fräs-, Geschiebe- und Teleskoptechnik – klassische Zahntechnik präzise und individuell umgesetzt.",
+    h2: "Allgemeine Prothetik",
+    subheadline: "Bewährte Zahntechnik für individuelle Versorgungen",
+    body: [
+      "Neben digitalen Verfahren beherrschen wir das gesamte Spektrum klassischer Zahntechnik.",
+      "Unsere erfahrenen Zahntechnikerinnen und Zahntechniker fertigen festsitzende und herausnehmbare prothetische Lösungen individuell nach den Anforderungen der jeweiligen Versorgung.",
+    ],
+    points: [
+      "Frästechnik",
+      "Geschiebetechnik",
+      "Teleskoptechnik",
+      "Modellgussprothetik",
+      "Totalprothetik",
+      "Gold-Verblendtechnik",
+      "NEM-Verblendtechnik",
+      "Lasertechnik mit Bego",
+    ],
   },
   {
     slug: "digitaler-workflow",
-    title: "Digitaler Workflow",
-    short: "Nahtlos von der Praxis ins Labor.",
-    description:
-      "Senden Sie uns Ihre Daten direkt aus der Intraoralkamera – wir arbeiten mit vollständig digitalisierten Patienten.",
-    points: ["Sirona Connect", "Intraoral-Scanning", "Digitale Patientendokumentation", "Datenverarbeitung & Datencontainer"],
     icon: "scan",
+    title: "Digitaler Workflow",
+    short:
+      "Digitale Patientendaten und Intraoralscans direkt aus der Zahnarztpraxis ins Labor übertragen – für effiziente und durchgängige digitale Prozesse.",
+    h2: "Digitaler Workflow für Zahnarztpraxen",
+    subheadline: "Vom Intraoralscan direkt ins Dentallabor",
+    body: [
+      "Digitale Prozesse ermöglichen eine schnelle und präzise Zusammenarbeit zwischen Zahnarztpraxis und Dentallabor.",
+      "Sie können uns digitale Patientendaten und Intraoralscans direkt übermitteln. Wir übernehmen die weitere Datenverarbeitung, Konstruktion und zahntechnische Umsetzung.",
+      "Damit lassen sich viele Arbeitsschritte effizient digital abbilden und Informationen strukturiert zwischen Praxis und Labor austauschen.",
+    ],
+    points: [
+      "Sirona Connect",
+      "Verarbeitung von Intraoralscans",
+      "digitale Patientendokumentation",
+      "CAD/CAM-Konstruktion",
+      "digitale Datenverarbeitung",
+      "Datencontainer",
+      "3D-Druck",
+    ],
   },
   {
     slug: "beratung-service",
-    title: "Beratung & Service",
-    short: "Spürbare Entlastung im Praxisalltag.",
-    description:
-      "Erfahrung und Kompetenz seit über 50 Jahren – mit einem Service, der weit über die reine Fertigung hinausgeht.",
-    points: ["Farbbestimmung im Labor oder in der Praxis", "Falldokumentationen & Kostenberechnungen", "Eigener Kurierdienst", "Planbesprechungen mit Zahnärzten"],
     icon: "support",
+    title: "Beratung & Service",
+    short:
+      "Farbbestimmung, Fallplanung, Kostenberechnung, Dokumentation und eigener Kurierdienst: persönliche Unterstützung weit über die reine Fertigung hinaus.",
+    h2: "Beratung und zahntechnischer Service",
+    subheadline: "Mehr als reine Fertigung",
+    body: [
+      "Zahntechnik funktioniert am besten als Zusammenarbeit.",
+      "Deshalb unterstützen wir Zahnarztpraxen bereits bei der Planung komplexer Fälle und stehen während des gesamten Prozesses als persönlicher Ansprechpartner zur Verfügung.",
+    ],
+    points: [
+      "persönliche Planbesprechungen",
+      "Farbbestimmung im Labor",
+      "Farbbestimmung in der Zahnarztpraxis",
+      "Falldokumentationen",
+      "detaillierte Kostenberechnungen",
+      "Variantenplanung",
+      "3D-Implantatplanung",
+      "professioneller Patientenraum mit Wartebereich",
+      "flexible Unterstützung bei kurzfristigen Abgabeterminen",
+      "eigener Kurierdienst in der Region Solothurn und Bern",
+    ],
   },
 ];

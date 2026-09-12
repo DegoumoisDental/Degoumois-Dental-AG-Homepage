@@ -4,48 +4,85 @@ import PageHeader from "../components/PageHeader.astro";
 import Icon from "../components/Icon.astro";
 
 const timeline = [
-  { year: "1972", title: "Gründung durch Georges Degoumois", text: "Der Grundstein für ein Dentallabor, das Handwerk und Innovation verbindet." },
-  { year: "2013", title: "Übernahme durch Martin Svarovsky", text: "Kontinuität in Qualität und Werten – mit klarem Kurs in die digitale Zukunft." },
-  { year: "Heute", title: "Digitales Labor", text: "Vollständig digitalisierte Workflows, CAD/CAM und 3D-Druck im Dienst der Präzision." },
+  {
+    year: "1972",
+    title: "Gründung durch Georges Degoumois",
+    text: "Mit der Gründung des Dentallabors in Solothurn legt Georges Degoumois den Grundstein für ein Unternehmen, das zahntechnisches Handwerk, Qualität und persönliche Zusammenarbeit miteinander verbindet.",
+  },
+  {
+    year: "2013",
+    title: "Übernahme durch Martin Svarovsky",
+    text: "Martin Svarovsky übernimmt die Degoumois Dental AG und führt die gewachsenen Werte des Unternehmens weiter. Gleichzeitig wird die Digitalisierung des Labors konsequent vorangetrieben.",
+  },
+  {
+    year: "Heute",
+    title: "Modernes digitales Dentallabor",
+    text: "Heute verbindet Degoumois Dental traditionelle zahntechnische Kompetenz mit CAD/CAM-Technologie, 3D-Druck, digitalen Workflows und moderner Implantatplanung. Die Fertigung erfolgt weiterhin in Solothurn – persönlich, präzise und mit kurzen Entscheidungswegen.",
+  },
 ];
 
+const values = [
+  { title: "Qualität", text: "Jede Arbeit wird individuell geplant und präzise umgesetzt. Unser Anspruch ist Zahnersatz, der funktional, ästhetisch und technisch überzeugt." },
+  { title: "Kompetenz", text: "Mehr als 50 Jahre Erfahrung treffen bei uns auf kontinuierliche Weiterbildung und moderne zahntechnische Technologien." },
+  { title: "Partnerschaft", text: "Eine enge Zusammenarbeit zwischen Zahnarztpraxis und Dentallabor ermöglicht bessere Abläufe und individuell abgestimmte Lösungen." },
+  { title: "Innovation", text: "CAD/CAM, 3D-Druck, digitale Datenverarbeitung und moderne Implantatplanung gehören heute selbstverständlich zu unserem Laboralltag." },
+  { title: "Service", text: "Von der Fallbesprechung bis zum eigenen Kurierdienst unterstützen wir unsere Partnerpraxen auch über die eigentliche Fertigung hinaus." },
+];
 ---
 
 <BaseLayout
-  title="Über uns"
-  description="Die Degoumois Dental AG – ein innovatives Dentallabor in Solothurn seit 1972. Erfahren Sie mehr über unsere Philosophie, unsere Werte und unsere Geschichte."
+  metaTitle="Dentallabor Solothurn seit 1972 | Degoumois Dental"
+  description="Degoumois Dental AG steht seit 1972 für präzise Zahntechnik aus Solothurn. Lernen Sie unsere Philosophie, Geschichte und Verbindung aus Handwerk und Digitalisierung kennen."
 >
   <PageHeader
     eyebrow="Über uns"
-    title="Tradition trifft digitale Präzision"
-    lead="Langjährige Erfahrung, umfassende Kompetenz und der Wille, kontinuierlich erstklassige Arbeit zu leisten – das ist unser Anspruch seit 1972."
+    title="Dentallabor in Solothurn seit 1972"
+    lead="Traditionelle Zahntechnik und digitale Präzision sind für uns keine Gegensätze."
     image="/img/labor/eingang-logo.jpg"
-    imageAlt="Eingang Degoumois Dental AG"
-  />
+    imageAlt="Eingang der Degoumois Dental AG in Solothurn"
+  >
+    <p class="ph-lead">
+      Seit 1972 entwickelt sich die Degoumois Dental AG kontinuierlich weiter. Was geblieben
+      ist, ist unser Anspruch: individuellen Zahnersatz mit Präzision, Fachkompetenz und einem
+      ausgeprägten Sinn für Ästhetik zu fertigen. Heute verbinden wir mehr als 50 Jahre
+      zahntechnische Erfahrung mit CAD/CAM, 3D-Druck, digitalen Workflows und moderner
+      Implantatplanung.
+    </p>
+  </PageHeader>
 
   <!-- Philosophie -->
   <section class="section">
     <div class="container phil-grid">
       <div data-reveal>
         <p class="eyebrow">Philosophie & Anspruch</p>
-        <h2>Gegenseitiges Verständnis und Vertrauen.</h2>
+        <h2>Zahnersatz ist für uns ein individuelles Werkstück</h2>
         <div class="phil-img" data-reveal data-delay="1">
-          <img src="/img/labor/korridor-team.jpg" alt="Team im Dentallabor Degoumois" loading="lazy" decoding="async" />
+          <img src="/img/labor/korridor-team.jpg" alt="Team der Degoumois Dental AG im Dentallabor in Solothurn" loading="lazy" decoding="async" />
         </div>
       </div>
       <div data-reveal data-delay="2">
         <p class="lead">
-          Zahnersatz mit Schmuck gleichzusetzen, widerspiegelt die Wertigkeit und Philosophie
-          unserer Arbeit sehr genau. Mit Liebe zum Detail, einem Auge für Ästhetik und ständig
-          weiterentwickelter Handwerkskunst widmen wir uns Ihrem Schmuckstück.
+          Zahnersatz mit einem Schmuckstück zu vergleichen, beschreibt unsere Philosophie sehr
+          treffend. Beides entsteht durch Präzision, Erfahrung, hochwertige Materialien und
+          Liebe zum Detail.
         </p>
         <p>
-          Langjährige Erfahrung, umfassende Kompetenz sowie der Wille, sich ständig
-          weiterzubilden und kontinuierlich erstklassige Arbeit zu leisten, sind unser Anspruch.
-          Dabei orientieren wir uns immer an den technischen Wünschen, individuellen
-          Vorstellungen und persönlichen Bedürfnissen von Zahnärzten und Patienten. Denn nur
-          gegenseitiges Verständnis und Vertrauen stellt die hohe Zahnarzt- und
-          Patientenzufriedenheit sicher.
+          Deshalb betrachten wir jede zahntechnische Arbeit als individuelle Anfertigung.
+          Funktion, Passung und natürliche Ästhetik müssen dabei ebenso überzeugen wie die
+          technische Umsetzung.
+        </p>
+        <p>
+          Unsere Zahntechnikerinnen und Zahntechniker verbinden handwerkliche Erfahrung mit
+          modernen digitalen Verfahren und entwickeln ihr Fachwissen kontinuierlich weiter.
+        </p>
+        <p>
+          Genauso wichtig ist für uns die Zusammenarbeit mit der Zahnarztpraxis. Technische
+          Anforderungen, individuelle Vorstellungen und die Bedürfnisse der Patientinnen und
+          Patienten sollen von Anfang an verstanden werden.
+        </p>
+        <p>
+          Denn hochwertige Zahntechnik entsteht dort, wo Fachkompetenz, Kommunikation und
+          gegenseitiges Vertrauen zusammenkommen.
         </p>
       </div>
     </div>
@@ -56,36 +93,30 @@ const timeline = [
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Werte</p>
-        <h2>Worauf wir bauen</h2>
+        <h2>Präzision. Vertrauen. Zusammenarbeit.</h2>
       </div>
       <div class="values-text" data-reveal data-delay="1">
         <p class="lead">
-          Vertrauen in unsere Kompetenz ist die Basis für erstklassige Qualität. Dieses Motto
-          ist für uns Verpflichtung.
+          Vertrauen in unsere Kompetenz ist die Grundlage unserer täglichen Arbeit. Wir
+          verwenden ausgewählte Werkstoffe, die hohen zahnmedizinischen Standards entsprechen,
+          und fertigen jeden Auftrag mit grosser Sorgfalt.
         </p>
         <p>
-          Alle von uns eingesetzten Werkstoffe erfüllen höchste zahnmedizinische Standards.
-          Jeder Auftrag wird von unseren Spezialisten mit Präzision engagiert ausgeführt. Das
-          Ergebnis: ein qualitativ hochwertiges, zahntechnisches Unikat, das in Bezug auf
-          Ästhetik und Funktionalität keine Wünsche offen lässt. Unser qualifiziertes Team ist
-          flexibel genug, um auf Ihre individuellen und spezifischen Anforderungen zu
-          reagieren. Deshalb legen wir von Anfang an grössten Wert darauf, dass während
-          unserer Zusammenarbeit keine Fragen offen bleiben. Dies beziehen wir nicht nur auf
-          Kosten, sondern auch auf Technik und Materialien. Neben der hochwertigen Leistung,
-          die wir Ihnen garantieren, ist uns der zwischenmenschliche Aspekt sehr wichtig. Er
-          umfasst nicht nur effiziente Teamarbeit zwischen Zahnarzt und Labor, sondern
-          schliesst auch perfekten Service sowie die kompetente technische Beratung ein. Über
-          50 Jahre Erfahrung mit innovativen Entwicklungen und präziser Umsetzung ergeben
-          zusammen mit neuster Technik einzigartige Werkstücke. Als fortschrittliches
-          Unternehmen setzen wir mit unseren Ideen und Visionen neue Meilensteine in der
-          Zahntechnik. Auch in Zukunft.
+          Dabei geht Qualität für uns weit über die eigentliche zahntechnische Arbeit hinaus.
+          Zahnarztpraxen sollen bei Degoumois Dental jederzeit wissen, welche technischen
+          Möglichkeiten bestehen, welche Materialien eingesetzt werden können und welche
+          Varianten für einen Fall infrage kommen. Deshalb legen wir grossen Wert auf
+          transparente Kommunikation, kompetente technische Beratung und persönliche
+          Ansprechpartner.
         </p>
-        <p>
-          Die Degoumois Dental AG überzeugt mit starken Dienstleistungen, die in Sachen
-          Qualität und Innovation Bestes bieten. Dafür setzen wir uns mit Leidenschaft ein.
-          Denn die Zufriedenheit unserer Kunden ist nicht nur unser Massstab, sondern auch
-          unser Kapital. Diesen Weg möchten wir auch in Zukunft weiter gehen.
-        </p>
+      </div>
+      <div class="value-grid">
+        {values.map((v, i) => (
+          <div class="value-item card" data-reveal data-delay={(i % 3) + 1}>
+            <h3>{v.title}</h3>
+            <p>{v.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -95,7 +126,7 @@ const timeline = [
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Unsere Geschichte</p>
-        <h2>Über 50 Jahre Zahntechnik</h2>
+        <h2>Mehr als 50 Jahre Zahntechnik aus Solothurn</h2>
       </div>
       <ol class="timeline">
         {timeline.map((t, i) => (
@@ -121,10 +152,16 @@ const timeline = [
       <blockquote>„Die Geschichte der Menschheit ist die Geschichte der menschlichen Visionen."</blockquote>
       <p class="qb-cite">Hans Kasper</p>
       <p class="qb-text">
-        Wer glaubt, Tradition und Innovation schliessen sich aus, der verkennt die positiven
-        Interdependenzen beider Perspektiven. Die Tradition bringt den Erfahrungsschatz ein,
-        den die Innovation als Grundlage nimmt. Nur aus dieser Reibung kann einzigartiger
-        Glanz entstehen.
+        Tradition und Innovation schliessen sich für uns nicht aus. Im Gegenteil:
+        Jahrzehntelange Erfahrung bildet die Grundlage dafür, neue Technologien sinnvoll
+        einzusetzen. Wir bewahren das zahntechnische Wissen und die handwerkliche Präzision,
+        die unser Labor seit 1972 prägen, und verbinden sie mit den Möglichkeiten der digitalen
+        Zahntechnik.
+      </p>
+      <p class="qb-text">
+        So entwickeln wir unsere Arbeit kontinuierlich weiter – ohne den Blick für das
+        Wesentliche zu verlieren: individuelle zahntechnische Lösungen und eine verlässliche
+        Zusammenarbeit mit unseren Partnerpraxen.
       </p>
       <a href="/team" class="btn btn-light" style="margin-top:2rem;">Unser Team kennenlernen <Icon name="arrow" /></a>
     </div>
@@ -138,6 +175,11 @@ const timeline = [
   .values-text { max-width: 68ch; margin-inline: auto; display: flex; flex-direction: column; gap: 1.25rem; }
   .values-text p { color: var(--ink-500); }
   .values-text .lead { color: var(--ink-900); }
+
+  .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+  .value-item { padding: 1.75rem; }
+  .value-item h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--accent-deep); }
+  .value-item p { color: var(--ink-500); font-size: 0.96rem; }
 
   .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; counter-reset: tl; }
   .tl-item { position: relative; display: flex; flex-direction: column; gap: 1rem; }
@@ -164,6 +206,7 @@ const timeline = [
 
   @media (max-width: 900px) {
     .phil-grid { grid-template-columns: 1fr; }
+    .value-grid { grid-template-columns: 1fr; }
     .timeline { grid-template-columns: 1fr; }
   }
 </style>

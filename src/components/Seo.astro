@@ -3,6 +3,8 @@ import { site } from "../site";
 
 interface Props {
   title?: string;
+  /** Exakter <title> (überschreibt die automatische Zusammensetzung) */
+  metaTitle?: string;
   description?: string;
   image?: string;
   type?: "website" | "article";
@@ -12,6 +14,7 @@ interface Props {
 
 const {
   title,
+  metaTitle,
   description = site.description,
   image = "/img/og-default.svg",
   type = "website",
@@ -19,7 +22,8 @@ const {
   publishedTime,
 } = Astro.props;
 
-const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — Zahntechnik Solothurn`;
+const fullTitle =
+  metaTitle ?? (title ? `${title} — ${site.name}` : `Dentallabor Solothurn | ${site.name}`);
 const canonical = new URL(Astro.url.pathname, site.url).href.replace(/\/$/, "") || site.url;
 const ogImage = new URL(image, site.url).href;
 
@@ -50,17 +54,49 @@ const orgSchema = {
     latitude: site.address.lat,
     longitude: site.address.lng,
   },
-  areaServed: { "@type": "AdministrativeArea", name: "Solothurn / Schweiz" },
-  knowsAbout: [
-    "Zahntechnik", "CAD/CAM", "Implantatprothetik", "Vollkeramik",
-    "Zirkonoxid", "Modellguss", "Totalprothetik", "Dentallabor",
+  founder: { "@type": "Person", name: "Georges Degoumois" },
+  foundingLocation: { "@type": "Place", name: "Solothurn, Schweiz" },
+  areaServed: [
+    { "@type": "City", name: "Solothurn" },
+    { "@type": "City", name: "Bern" },
+    { "@type": "AdministrativeArea", name: "Region Solothurn und Bern" },
   ],
-  openingHoursSpecification: site.openingHours.map(() => ({
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "07:30",
-    closes: "17:00",
-  })),
+  knowsAbout: [
+    "Zahntechnik", "Dentallabor", "CAD/CAM-Zahntechnik", "Implantatprothetik",
+    "Custom Abutments", "Vollkeramik", "Zirkonoxid", "IPS e.max",
+    "allgemeine Prothetik", "Modellguss", "Totalprothetik", "Teleskoptechnik",
+    "digitaler Workflow", "Intraoralscan", "3D-Druck", "3D-Implantatplanung",
+    "Farbbestimmung", "Zahnersatz",
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Zahntechnische Leistungen",
+    itemListElement: [
+      "CAD/CAM-Zahntechnik",
+      "Implantatprothetik",
+      "Vollkeramik und ästhetische Zahntechnik",
+      "Allgemeine Prothetik",
+      "Digitaler Workflow für Zahnarztpraxen",
+      "Beratung und zahntechnischer Service",
+    ].map((s) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: s, provider: { "@id": `${site.url}/#organization` } },
+    })),
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "07:30",
+      closes: "12:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "13:00",
+      closes: "17:00",
+    },
+  ],
 };
 ---
 
