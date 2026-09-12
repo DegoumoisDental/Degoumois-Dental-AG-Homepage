@@ -4,4 +4,5 @@ role: Kurier
 order: 27
 lead: false
 photo: /img/team/Efthymios_Karras.jpg
+photoScale: 1.25
 ---
