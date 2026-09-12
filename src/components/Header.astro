@@ -73,10 +73,10 @@ const isActive = (href: string) =>
   .brand img { height: 60px; width: auto; transition: opacity 0.35s var(--ease); }
   .brand-light { position: absolute; inset: 0; }
 
-  /* Transparenter Zustand (über Hero) */
+  /* Transparenter Zustand (über dunklem Seitenkopf) */
   .site-header[data-transparent] { background: transparent; }
-  .site-header[data-transparent] .brand-dark { opacity: 1; }
-  .site-header[data-transparent] .brand-light { opacity: 0; }
+  .site-header[data-transparent] .brand-dark { opacity: 0; }
+  .site-header[data-transparent] .brand-light { opacity: 1; }
   .site-header[data-transparent] .nav-link { color: rgba(255,255,255,0.92); }
   .site-header[data-transparent] .nav-toggle span { background: #fff; }
 
@@ -164,13 +164,11 @@ const isActive = (href: string) =>
     const mobileNav = document.getElementById("mobileNav");
     if (!header) return;
 
-    // Transparenz nur, wenn die Seite einen Hero hat (data-hero auf <body>)
-    const hasHero = document.body.hasAttribute("data-hero");
+    // Navbar auf allen Seiten transparent, beim Scrollen solide/weiss
     const onScroll = () => {
       const scrolled = window.scrollY > 24;
-      header.classList.toggle("scrolled", scrolled || !hasHero);
-      if (!hasHero) header.removeAttribute("data-transparent");
-      else header.toggleAttribute("data-transparent", !scrolled);
+      header.classList.toggle("scrolled", scrolled);
+      header.toggleAttribute("data-transparent", !scrolled);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
