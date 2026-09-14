@@ -12,7 +12,7 @@
   --brand-300: #6ec3e8;
   --brand-400: #2ea7d9;
   --brand-500: #0e9ad6; /* Primär – das helle Logo-Blau */
-  --brand-600: #0a7fb8;
+  --brand-600: #0873a3; /* WCAG-AA: ≥4.5:1 auf Weiss (Links, Eyebrows) */
   --brand-700: #0c6492;
   --brand-800: #0f5176;
   --brand-900: #0c3a55; /* Tiefes Stahlblau/Navy */
@@ -22,7 +22,7 @@
   --ink-900: #0d1b24;
   --ink-700: #33444e;
   --ink-500: #5d6c75;
-  --ink-400: #84939c;
+  --ink-400: #68767f; /* WCAG-AA: ≥4.5:1 auf Weiss (dezenter Meta-Text) */
   --ink-300: #aeb9c1;
   --line:    #e3eaee;
   --surface: #ffffff;
@@ -147,7 +147,7 @@ p { color: var(--ink-700); }
 .btn:hover svg { transform: translateX(3px); }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--brand-500), var(--brand-700));
+  background: linear-gradient(135deg, var(--brand-600), var(--brand-800));
   color: #fff;
   box-shadow: 0 8px 20px rgba(14, 154, 214, 0.28);
 }
