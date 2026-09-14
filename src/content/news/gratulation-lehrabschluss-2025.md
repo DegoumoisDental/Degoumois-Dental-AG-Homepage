@@ -11,4 +11,6 @@ Wir gratulieren von Herzen zum bestandenen Lehrabschluss! Unsere Lernenden haben
 
 Die Ausbildung von qualifiziertem Nachwuchs liegt uns bei der Degoumois Dental AG seit jeher besonders am Herzen. Umso grösser ist unsere Freude, wieder junge Talente auf ihrem Weg begleitet und gefördert zu haben.
 
+![Lehrabgänger mit Hut und bestandenem EFZ-Zeugnis bei der Degoumois Dental AG](/img/news/lehrabschluss/lehrabschluss-01.jpeg)
+
 Wir wünschen euch für den nächsten Lebensabschnitt alles Gute, viel Freude im Beruf und weiterhin so viel Engagement wie während der Lehrzeit. Ihr habt es euch verdient!

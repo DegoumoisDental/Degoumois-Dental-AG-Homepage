@@ -55,7 +55,7 @@ export const partners = [
   { name: "Denseo",          file: "/partner/denseo.avif",         url: "https://www.denseo.de" },
   { name: "Astra",           file: "/partner/astratech.jpg",       url: "https://www.dentsplysirona.com" },
   { name: "Ankylos",         file: "/partner/Ankylos_logo.webp",   url: "https://www.dentsplysirona.com" },
-  { name: "Neodent",         file: "",                             url: "https://www.neodent.com" },
-  { name: "Camlog",          file: "",                             url: "https://www.camlog.com" },
-  { name: "Zimmer Biomet",   file: "",                             url: "https://www.zimvie.com" },
+  { name: "Neodent",         file: "/partner/neodent.webp",              url: "https://www.neodent.com" },
+  { name: "Camlog",          file: "/partner/camlog.png",                url: "https://www.camlog.com" },
+  { name: "Zimmer Biomet",   file: "/partner/Zimmer_Biomet-Logo.wine.png", url: "https://www.zimvie.com" },
 ] as const;
