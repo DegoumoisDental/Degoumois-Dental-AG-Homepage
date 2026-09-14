@@ -37,7 +37,7 @@ website/
 │  ├─ site.ts        → ZENTRALE Stammdaten (Kontakt, Navigation)
 │  └─ styles/global.css → Design-System (Farben, Typo)
 ├─ astro.config.mjs
-└─ vercel.json       → Security-Header (Vercel)
+└─ public/.htaccess  → Security-Header + HTTPS-Redirect (cyon/Apache)
 ```
 
 ## Aufgaben für den Live-Gang (Platzhalter ersetzen)
@@ -51,33 +51,40 @@ website/
 4. **OG-Bild:** Optional `public/img/og-default.svg` durch ein 1200×630-Bild ersetzen.
 5. **Team-Fotos / News-Bilder:** Bei Bedarf ergänzen (aktuell Initialen-Avatare).
 
-## News selbst erfassen (CMS)
+## Deployment auf cyon (statisch, per FTP/SFTP)
 
-Das Team pflegt News über **Decap CMS** (Open Source, kostenlos, Git-basiert).
+Die Seite wird statisch gebaut und der Inhalt von `dist/` in das Web-Wurzelverzeichnis
+von cyon hochgeladen.
 
-**Lokal testen (ohne Login):**
 ```bash
-npx decap-server      # Terminal 1
-npm run dev           # Terminal 2  →  http://localhost:4321/admin/
+npm ci
+npm run build          # erzeugt dist/
 ```
 
-**Produktiv (empfohlen):** GitHub als Backend + ein kleiner OAuth-Proxy, damit sich
-das Team per GitHub-Login anmelden kann.
-- Repo bei GitHub anlegen, in `public/admin/config.yml` `repo:` eintragen,
-  `local_backend: true` entfernen.
-- OAuth-Proxy: z. B. das kostenlose Vercel-Template `decap-proxy` deployen und in
-  der config als `base_url`/`auth_endpoint` hinterlegen.
-- Alternativ ohne GitHub-Konten fürs Team: **Sveltia CMS** oder ein gehostetes
-  Backend (Tina/Sanity) — siehe Notizen.
+Dann `dist/` (inkl. der Datei `.htaccess`) per FTP/SFTP in den Webordner von cyon
+kopieren (z. B. `/public_html/` bzw. den in cyon konfigurierten Domain-Ordner).
+`.htaccess` setzt HTTPS-Redirect, Security-Header und Caching.
 
-Jede News ist eine Markdown-Datei in `src/content/news/`. Speichern im CMS = Commit
-ins Git = automatischer Re-Deploy.
+> Tipp: Der Upload lässt sich mit einem GitHub-Action-Workflow automatisieren
+> (bei jedem Push auf `main` → Build → SFTP-Upload zu cyon). Bei Bedarf einrichten.
+
+## News / Team pflegen (direkt auf GitHub)
+
+Kein CMS nötig. Jede News ist eine Markdown-Datei in `src/content/news/`, jedes
+Teammitglied in `src/content/team/`.
+
+- Datei auf **github.com** im Repo öffnen → Stift-Symbol (Bearbeiten) → Text ändern →
+  **Commit changes**. Neue News: „Add file → Create new file" unter `src/content/news/`.
+- Danach die Seite neu bauen (`npm run build`) und `dist/` zu cyon hochladen
+  (oder via GitHub-Action automatisch).
+- Optional lokal komfortabler: `npm run dev` → `http://localhost:4321/keystatic`
+  (nur lokal, schreibt direkt in die Markdown-Dateien).
 
 ## Technik & Sicherheit
 
 - **Astro (static output)** — kein Server/keine DB ⇒ minimale Angriffsfläche.
 - **Security-Header** (CSP, HSTS, X-Frame-Options, Permissions-Policy) via
-  `vercel.json` bzw. `public/_headers`.
+  `public/.htaccess` (Apache/cyon).
 - **Schriften lokal gehostet** (`@fontsource`) — DSGVO/revDSG-konform, keine
   Google-Fonts-Calls.
 - **SEO/GEO:** pro Seite Meta-Tags, Open Graph, Canonical, `JSON-LD` (Dentist/

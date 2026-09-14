@@ -10,12 +10,14 @@ const isDev = process.env.NODE_ENV !== "production";
 
 export default defineConfig({
   site: SITE,
-  output: "hybrid",
-  ...(isDev ? {} : { adapter: (await import("@astrojs/vercel/serverless")).default() }),
+  // Statischer Build für cyon (Upload des dist/-Ordners per FTP/SFTP).
+  output: "static",
   trailingSlash: "ignore",
   integrations: [
     react(),
-    keystatic(),
+    // Keystatic nur lokal (npm run dev → /keystatic). Im Produktions-Build
+    // (statisch) nicht enthalten – Inhalte werden direkt auf GitHub gepflegt.
+    ...(isDev ? [keystatic()] : []),
     sitemap({
       changefreq: "monthly",
       priority: 0.7,

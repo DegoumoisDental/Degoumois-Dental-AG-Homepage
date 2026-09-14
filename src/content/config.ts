@@ -1,8 +1,8 @@
 import { defineCollection, z } from "astro:content";
 
 /**
- * News / Aktuelles — wird vom Team über das CMS (/admin) gepflegt.
- * Jeder Artikel ist eine Markdown-Datei unter src/content/news/.
+ * News / Aktuelles — als Markdown-Dateien unter src/content/news/ gepflegt
+ * (direkt auf GitHub bearbeitbar; lokal optional via Keystatic unter /keystatic).
  */
 const news = defineCollection({
   type: "content",
