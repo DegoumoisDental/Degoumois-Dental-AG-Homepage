@@ -25,7 +25,8 @@ export const site = {
   email: "info@degoumoisdental.ch",
   emailHin: "degoumoisdental@vzls-hin.ch",
   openingHours: [
-    { days: "Mo – Fr", hours: "07:30 – 12:00, 13:00 – 17:00" },
+    { days: "Mo – Fr", hours: "07:30 – 18:00" },
+    { days: "Samstag", hours: "nach Vereinbarung" },
   ],
 } as const;
 
