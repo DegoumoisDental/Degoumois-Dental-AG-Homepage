@@ -1,10 +1,10 @@
 ---
 title: "Gemeinsam am Herd – Unser Team-Kochkurs"
-date: 2025-01-17
+date: 2025-11-29
 category: "Firmenanlass"
 excerpt: "Schneiden, braten, anrichten – unser Team hat gemeinsam den Kochlöffel geschwungen und einen unvergesslichen Abend am offenen Feuer verbracht."
-cover: "/img/news/kochkurs/kochkurs-01.jpeg"
-coverAlt: "Das Degoumois-Team beim gemeinsamen Kochkurs"
+cover: "/img/news/kochkurs/thomas_kochkurs.jpeg"
+coverAlt: "Thomas Batsilas mit dem Degoumois-Team beim gemeinsamen Kochkurs"
 ---
 
 Als besonderer Firmenanlass haben wir uns in die Küche gewagt: Beim gemeinsamen **Kochkurs** durfte unser Team unter professioneller Anleitung selbst Hand anlegen – vom Kochen am offenen Feuer bis zum stilvollen Anrichten der fertigen Speisen.

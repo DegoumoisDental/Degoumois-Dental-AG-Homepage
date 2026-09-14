@@ -9,6 +9,7 @@ export interface Service {
   body: string[]; // Fliesstext der Leistungssektion (Absätze)
   points: string[]; // Systeme / Materialien / Leistungen
   note?: string; // optionaler Hinweis nach der Liste
+  link?: { href: string; label: string }; // optionaler externer Link nach der Liste
   image?: string; // Hintergrundbild der Startseiten-Card
   homepage?: boolean; // false = nur auf der Leistungsseite anzeigen
 }
@@ -25,7 +26,7 @@ export const services: Service[] = [
     image: "/img/labor/komprimiert/Keyvisual_Labor_Startseite_1.jpg",
     body: [
       "CAD/CAM ist ein zentraler Bestandteil unserer digitalen Zahntechnik. Zahntechnische Restaurationen werden digital konstruiert und mit modernen Fertigungsverfahren präzise umgesetzt.",
-      "Je nach Indikation verarbeiten wir unter anderem Zirkon, Chrom-Kobalt, Titan, PMMA, Nylon/Eldy, Hybridkeramik sowie Peek.",
+      "Je nach Indikation verarbeiten wir unter anderem Zirkon, Chrom-Kobalt, Titan, PMMA, Nylon/Eldy, Hybridkeramik, e.max sowie Peek.",
       "Dabei arbeiten wir mit mehreren Systemen, damit wir flexibel auf unterschiedliche Anforderungen und bestehende Praxis-Workflows reagieren können.",
     ],
     points: [
@@ -78,6 +79,12 @@ export const services: Service[] = [
       "Wir fertigen vollkeramische Lösungen mit modernen Materialien und kombinieren digitale Präzision mit zahntechnischem Feingefühl.",
     ],
     points: [
+      "Kronen und Brücken – geschichtet und monolithisch",
+      "Implantatkronen und -brücken",
+      "Veneers",
+      "Inlay/Overlay",
+      "Maryland- und Klebebrücken",
+      "Wurzelstiftkappen und Stiftaufbauten",
       "IPS e.max von Ivoclar",
       "GC-Keramiken",
       "Zirkonoxid",
@@ -122,11 +129,12 @@ export const services: Service[] = [
     subheadline: "Vom Intraoralscan direkt ins Dentallabor",
     image: "/img/labor/komprimiert/digitaler_workflow_1.1.2.jpg",
     body: [
-      "Digitale Prozesse ermöglichen eine schnelle und präzise Zusammenarbeit zwischen Zahnarztpraxis und Dentallabor.",
-      "Sie können uns digitale Patientendaten und Intraoralscans direkt übermitteln. Wir übernehmen die weitere Datenverarbeitung, Konstruktion und zahntechnische Umsetzung.",
-      "Damit lassen sich viele Arbeitsschritte effizient digital abbilden und Informationen strukturiert zwischen Praxis und Labor austauschen.",
+      "Beginnend mit der Auftragserfassung über Condent erhalten wir Ihren digitalen Auftrag inklusive aller Daten, Fotos und Scans.",
+      "Das bringt Vorteile für Praxis und Labor: eine chronologische, digitale Patientendokumentation, Chatten in Echtzeit und eine deutlich einfachere Kommunikation zwischen Zahnarztpraxis und Labor.",
+      "Alles digital, alles in der Cloud – Swiss Made.",
     ],
     points: [
+      "Condent",
       "Sirona Connect",
       "Verarbeitung von Intraoralscans",
       "digitale Patientendokumentation",
@@ -135,22 +143,31 @@ export const services: Service[] = [
       "Datencontainer",
       "3D-Druck",
     ],
+    link: { href: "https://www.condent.ch/de/", label: "Zur Condent Dentallabor-Software" },
   },
   {
     slug: "kieferorthopaedie",
     icon: "tooth",
-    title: "Kieferorthopädie",
-    short: "Kieferorthopädische Apparaturen und individuelle Schienen.",
-    h2: "Kieferorthopädie",
+    title: "Kieferorthopädie & Schienentherapie",
+    short: "Kieferorthopädische Apparaturen, individuelle Schienen und umfassende Schienentherapie.",
+    h2: "Kieferorthopädie & Schienentherapie",
+    subheadline: "Apparaturen, Zahnspangen und individuelle Schienen",
     homepage: false,
     body: [],
     points: [
-      "Individuelle Protrusionsschienen / Silenso",
-      "Schienentherapie",
+      "Individuelle Protrusionsschienen / Silensor",
       "GNE analog und digital",
       "Herausnehmbare Zahnspangen",
       "Retainer digital und analog",
       "Herbstscharnier",
+      "Schienentherapie",
+      "Michiganschienen",
+      "Knirsch- und Aufbissschienen",
+      "Retentionsschienen",
+      "Bleichschienen",
+      "NTI-Schienen",
+      "Sportschutzschienen",
+      "Bohrschablonen",
     ],
   },
   {
@@ -168,8 +185,9 @@ export const services: Service[] = [
     ],
     points: [
       "persönliche Planbesprechungen",
-      "Farbbestimmung im Labor",
+      "Farbbestimmung im Labor mit professioneller Fotodokumentation",
       "Farbbestimmung in der Zahnarztpraxis",
+      "individuelle Anprobe und Anpassung im Labor",
       "Falldokumentationen",
       "detaillierte Kostenberechnungen",
       "Variantenplanung",

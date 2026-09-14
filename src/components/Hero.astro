@@ -16,20 +16,21 @@ import { site } from "../site";
       <h1 data-reveal data-delay="1">
         Dentallabor in Solothurn für <span class="grad-text">moderne Zahntechnik</span>
       </h1>
-      <p class="hero-lead" data-reveal data-delay="2">
+      <p class="hero-slogan" data-reveal data-delay="2">Aus Tradition innovativ.</p>
+      <p class="hero-lead" data-reveal data-delay="3">
         Wir verbinden präzises Handwerk mit digitaler Zahntechnik und individueller
         Beratung. Von CAD/CAM und Implantatprothetik über Vollkeramik bis zur klassischen
         Prothetik entstehen bei uns hochwertige zahntechnische Lösungen – präzise gefertigt
         in Solothurn.
       </p>
-      <div class="hero-actions" data-reveal data-delay="3">
+      <div class="hero-actions" data-reveal data-delay="4">
         <a href="/leistungen" class="btn btn-light">
           Unsere Leistungen
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a href="/auftrag" class="btn btn-primary">Auftrag</a>
       </div>
-      <a href="#intro" class="hero-scroll" aria-label="Weiter scrollen" data-reveal data-delay="4">
+      <a href="#intro" class="hero-scroll" aria-label="Weiter scrollen" data-reveal data-delay="5">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
@@ -82,7 +83,15 @@ import { site } from "../site";
     color: rgba(255,255,255,0.82);
     margin-bottom: 1.25rem;
   }
-  .hero h1 { color: #fff; margin-bottom: 1.5rem; }
+  .hero h1 { color: #fff; margin-bottom: 0.9rem; }
+  .hero-slogan {
+    font-family: var(--font-accent, var(--font-display));
+    font-style: italic;
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    color: #a8dbf1;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+  }
   .grad-text {
     background: linear-gradient(120deg, #a8dbf1, #6ec3e8);
     -webkit-background-clip: text; background-clip: text; color: transparent;

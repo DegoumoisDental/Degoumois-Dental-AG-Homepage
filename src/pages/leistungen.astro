@@ -96,6 +96,11 @@ const faqSchema = {
                 ))}
               </ul>
               {s.note && <p class="svc-note">{s.note}</p>}
+              {s.link && (
+                <a href={s.link.href} target="_blank" rel="noopener noreferrer" class="svc-link">
+                  {s.link.label} <Icon name="arrow" />
+                </a>
+              )}
             </div>
           </article>
         ))}
@@ -190,6 +195,13 @@ const faqSchema = {
   .svc-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 1.5rem; margin-top: 1.5rem; }
   .svc-points li, .service-points li { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--ink-700); font-weight: 500; }
   .svc-note { margin-top: 1.1rem; font-size: 0.95rem; color: var(--ink-500); font-style: italic; max-width: 60ch; }
+  .svc-link {
+    display: inline-flex; align-items: center; gap: 0.4em; margin-top: 1.1rem;
+    font-family: var(--font-display); font-weight: 600; color: var(--brand-600); font-size: 0.98rem;
+    text-decoration: none;
+  }
+  .svc-link :global(svg) { width: 1.05em; height: 1.05em; transition: transform 0.25s var(--ease); }
+  .svc-link:hover :global(svg) { transform: translateX(4px); }
   :global(.chk) { width: 20px; height: 20px; color: var(--brand-500); flex-shrink: 0; margin-top: 3px; }
 
   /* Warum Degoumois */
