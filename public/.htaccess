@@ -1,5 +1,20 @@
 # ── Degoumois Dental AG – Apache-Konfiguration für cyon (statischer Astro-Build) ──
 
+# ===================================================================
+# TEMPORÄRER PASSWORTSCHUTZ (Vorschau vor dem Launch)
+# → Zum Live-Schalten diesen Block ENTFERNEN und neu deployen.
+# ===================================================================
+AuthType Basic
+AuthName "Degoumois Dental – Vorschau (noch nicht öffentlich)"
+AuthUserFile /home/degoumoi/public_html/.htpasswd
+Require valid-user
+# ===================================================================
+
+# Interne Dateien (.htaccess, .htpasswd, Deploy-State) nicht ausliefern
+<FilesMatch "^\.(ht|ftp-deploy)">
+  Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
