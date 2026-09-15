@@ -62,8 +62,31 @@ Dann `dist/` (inkl. der Datei `.htaccess`) per FTP/SFTP in den Webordner von cyo
 kopieren (z. B. `/public_html/` bzw. den in cyon konfigurierten Domain-Ordner).
 `.htaccess` setzt HTTPS-Redirect, Security-Header und Caching.
 
-> Tipp: Der Upload lässt sich mit einem GitHub-Action-Workflow automatisieren
-> (bei jedem Push auf `main` → Build → SFTP-Upload zu cyon). Bei Bedarf einrichten.
+### Automatischer Deploy (GitHub Actions)
+
+`.github/workflows/deploy.yml` baut die Seite und lädt `dist/` per **FTPS** zu cyon –
+bei jedem Push auf `main`, per manuellem Knopf (GitHub → **Actions** → *Build & Deploy → cyon*
+→ **Run workflow**) und automatisch alle ~2 Std. während der Geschäftszeiten (holt in
+Storyblok veröffentlichte News live).
+
+**Einmalig einzurichten:** GitHub → Repo **Settings → Secrets and variables → Actions →
+New repository secret**. Diese 5 Secrets anlegen (Werte sieht nur GitHub, nicht im Code):
+
+| Secret | Wert |
+|---|---|
+| `STORYBLOK_TOKEN` | der Public-Token aus Storyblok |
+| `CYON_FTP_SERVER` | FTP-Host von cyon (z. B. `wwwXX.cyon.net` oder deine Domain) |
+| `CYON_FTP_USERNAME` | cyon-FTP-Benutzer |
+| `CYON_FTP_PASSWORD` | cyon-FTP-Passwort |
+| `CYON_FTP_DIR` | Zielordner **mit** Schrägstrich am Ende, z. B. `/public_html/` |
+
+Host/User/Passwort stehen im **cyon-Panel → FTP/SSH**. Danach einmal *Run workflow* testen.
+
+**Optional – sofort statt alle 2 Std.:** In Storyblok (*Settings → Webhooks*) einen Webhook
+auf „Story published/unpublished" einrichten, der GitHub triggert
+(`repository_dispatch`, Event `storyblok-publish`). Da GitHub dafür einen Auth-Header
+braucht, ist meist ein kleiner Relay (z. B. Cloudflare Worker) nötig – sag Bescheid,
+wenn du echtes Instant-Deploy willst.
 
 ## News pflegen (Storyblok – Online-CMS)
 

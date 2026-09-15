@@ -1,0 +1,49 @@
+name: Build & Deploy → cyon
+
+# Wann gebaut & hochgeladen wird:
+on:
+  push:
+    branches: [main]          # Code-/Team-Änderungen (GitHub)
+  workflow_dispatch:          # manueller Knopf in GitHub → Actions
+  repository_dispatch:        # optionaler Storyblok-Webhook (siehe README)
+    types: [storyblok-publish]
+  schedule:
+    # ~alle 2 Std. zwischen 06–18 Uhr CH, Mo–Sa: holt in Storyblok
+    # veröffentlichte News automatisch live (nur geänderte Dateien werden geladen).
+    - cron: "0 5-16/2 * * 1-6"
+
+# Nie zwei Deploys gleichzeitig:
+concurrency:
+  group: deploy-cyon
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Abhängigkeiten installieren
+        run: npm ci
+
+      - name: Statische Seite bauen (News aus Storyblok)
+        run: npm run build
+        env:
+          STORYBLOK_TOKEN: ${{ secrets.STORYBLOK_TOKEN }}
+
+      - name: Upload zu cyon (FTPS)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.CYON_FTP_SERVER }}
+          username: ${{ secrets.CYON_FTP_USERNAME }}
+          password: ${{ secrets.CYON_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ secrets.CYON_FTP_DIR }}
