@@ -92,7 +92,7 @@ export const services: Service[] = [
       "PMMA",
       "PEEK",
     ],
-    note: "Für anspruchsvolle ästhetische Fälle bieten wir nach Absprache auch eine persönliche Farbbestimmung im Labor oder in der Zahnarztpraxis an.",
+    note: "Für anspruchsvolle ästhetische Fälle bieten wir nach Absprache auch eine persönliche Farbbestimmung im Labor an.",
   },
   {
     slug: "prothetik",
@@ -155,7 +155,7 @@ export const services: Service[] = [
     homepage: false,
     body: [],
     points: [
-      "Individuelle Protrusionsschienen / Silensor",
+      "Individuelle Protrusionsschienen / Silensor / Schnarchschiene",
       "GNE analog und digital",
       "Herausnehmbare Zahnspangen",
       "Retainer digital und analog",
@@ -186,7 +186,6 @@ export const services: Service[] = [
     points: [
       "persönliche Planbesprechungen",
       "Farbbestimmung im Labor mit professioneller Fotodokumentation",
-      "Farbbestimmung in der Zahnarztpraxis",
       "individuelle Anprobe und Anpassung im Labor",
       "Falldokumentationen",
       "detaillierte Kostenberechnungen",
