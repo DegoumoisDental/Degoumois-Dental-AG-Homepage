@@ -1,8 +1,13 @@
 # ── Degoumois Dental AG – Apache-Konfiguration für cyon (statischer Astro-Build) ──
 
-# HTTPS erzwingen
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # degoumoisdental.com (mit/ohne www) → Hauptdomain www.degoumoisdental.ch (301)
+  RewriteCond %{HTTP_HOST} ^(www\.)?degoumoisdental\.com$ [NC]
+  RewriteRule ^ https://www.degoumoisdental.ch%{REQUEST_URI} [L,R=301]
+
+  # HTTPS erzwingen (für die .ch-Domain)
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
