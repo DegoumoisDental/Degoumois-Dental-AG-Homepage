@@ -1,25 +1,10 @@
 import { defineCollection, z } from "astro:content";
 
 /**
- * News / Aktuelles — als Markdown-Dateien unter src/content/news/ gepflegt
- * (direkt auf GitHub bearbeitbar; lokal optional via Keystatic unter /keystatic).
- */
-const news = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    // Kategorie steuert Filter/Badge auf der News-Seite
-    category: z.enum(["Firmenanlass", "Lehrabgänger", "Auszeichnung", "Technologie", "Sponsoring"]),
-    excerpt: z.string(),
-    cover: z.string().optional(),
-    coverAlt: z.string().optional(),
-    draft: z.boolean().default(false),
-  }),
-});
-
-/**
- * Team — optional ebenfalls über das CMS pflegbar.
+ * News / Aktuelles werden über Storyblok gepflegt (Online-CMS mit eigenen Logins),
+ * nicht mehr als Markdown – siehe src/lib/news.ts.
+ *
+ * Team — als Markdown unter src/content/team/ (direkt auf GitHub bearbeitbar).
  */
 const team = defineCollection({
   type: "content",
@@ -38,4 +23,4 @@ const team = defineCollection({
   }),
 });
 
-export const collections = { news, team };
+export const collections = { team };

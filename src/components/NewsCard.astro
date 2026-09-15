@@ -1,13 +1,13 @@
 ---
-import type { CollectionEntry } from "astro:content";
-interface Props { entry: CollectionEntry<"news">; featured?: boolean; }
-const { entry, featured = false } = Astro.props;
-const { title, date, category, excerpt, cover, coverAlt } = entry.data;
+import type { NewsPost } from "../lib/news";
+interface Props { post: NewsPost; featured?: boolean; }
+const { post, featured = false } = Astro.props;
+const { slug, title, date, category, excerpt, cover, coverAlt } = post;
 const dateStr = new Intl.DateTimeFormat("de-CH", { day: "2-digit", month: "long", year: "numeric" }).format(date);
 ---
 
 <article class:list={["news-card card", { featured }]}>
-  <a href={`/news/${entry.slug}`} class="news-link">
+  <a href={`/news/${slug}`} class="news-link">
     <div class="news-media">
       {cover ? (
         <img src={cover} alt={coverAlt ?? title} loading="lazy" decoding="async" />

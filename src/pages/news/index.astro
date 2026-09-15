@@ -1,13 +1,11 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import NewsCard from "../../components/NewsCard.astro";
+import { getNews } from "../../lib/news";
 
-const all = (await getCollection("news", ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
-const categories = ["Alle", ...new Set(all.map((e) => e.data.category))];
+const all = await getNews();
+const categories = ["Alle", ...new Set(all.map((e) => e.category))];
 ---
 
 <BaseLayout
@@ -32,9 +30,9 @@ const categories = ["Alle", ...new Set(all.map((e) => e.data.category))];
       </div>
 
       <div class="grid news-grid" id="newsGrid">
-        {all.map((entry, i) => (
-          <div class="news-item" data-category={entry.data.category} data-reveal data-delay={(i % 3) + 1}>
-            <NewsCard entry={entry} />
+        {all.map((post, i) => (
+          <div class="news-item" data-category={post.category} data-reveal data-delay={(i % 3) + 1}>
+            <NewsCard post={post} />
           </div>
         ))}
       </div>

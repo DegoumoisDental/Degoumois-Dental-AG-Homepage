@@ -19,25 +19,22 @@ npm run preview  # Build lokal prüfen
 ```
 website/
 ├─ public/
-│  ├─ admin/         → Decap CMS (Admin-Panel unter /admin)
 │  ├─ img/           → Logo, Favicon, OG-Bild, Poster
 │  ├─ partner/       → Partner-/System-Logos
 │  ├─ video/         → HEADER-VIDEO hier ablegen (hero.mp4 / hero.webm)
-│  ├─ uploads/       → vom CMS hochgeladene Bilder
 │  ├─ robots.txt
-│  └─ _headers       → Security-Header (Netlify-Fallback)
+│  └─ .htaccess      → Security-Header + HTTPS-Redirect (cyon/Apache)
 ├─ src/
 │  ├─ components/    → Header, Footer, Hero, Seo, NewsCard, …
-│  ├─ content/
-│  │  ├─ news/       → News-Artikel (Markdown) — vom CMS gepflegt
-│  │  └─ team/       → Teammitglieder (Markdown)
+│  ├─ content/team/  → Teammitglieder (Markdown)
+│  ├─ lib/news.ts    → News-Abruf aus Storyblok (Online-CMS)
 │  ├─ data/services.ts
 │  ├─ layouts/BaseLayout.astro
 │  ├─ pages/         → Start, Leistungen, Über uns, Team, News, Kontakt, …
 │  ├─ site.ts        → ZENTRALE Stammdaten (Kontakt, Navigation)
 │  └─ styles/global.css → Design-System (Farben, Typo)
-├─ astro.config.mjs
-└─ public/.htaccess  → Security-Header + HTTPS-Redirect (cyon/Apache)
+├─ .env             → STORYBLOK_TOKEN (nicht im Git)
+└─ astro.config.mjs
 ```
 
 ## Aufgaben für den Live-Gang (Platzhalter ersetzen)
@@ -68,17 +65,19 @@ kopieren (z. B. `/public_html/` bzw. den in cyon konfigurierten Domain-Ordner).
 > Tipp: Der Upload lässt sich mit einem GitHub-Action-Workflow automatisieren
 > (bei jedem Push auf `main` → Build → SFTP-Upload zu cyon). Bei Bedarf einrichten.
 
-## News / Team pflegen (direkt auf GitHub)
+## News pflegen (Storyblok – Online-CMS)
 
-Kein CMS nötig. Jede News ist eine Markdown-Datei in `src/content/news/`, jedes
-Teammitglied in `src/content/team/`.
+Die News werden im **Storyblok**-CMS online bearbeitet (eigene Logins pro Person):
 
-- Datei auf **github.com** im Repo öffnen → Stift-Symbol (Bearbeiten) → Text ändern →
-  **Commit changes**. Neue News: „Add file → Create new file" unter `src/content/news/`.
-- Danach die Seite neu bauen (`npm run build`) und `dist/` zu cyon hochladen
-  (oder via GitHub-Action automatisch).
-- Optional lokal komfortabler: `npm run dev` → `http://localhost:4321/keystatic`
-  (nur lokal, schreibt direkt in die Markdown-Dateien).
+- Einloggen auf [app.storyblok.com](https://app.storyblok.com) → Space **„Degoumois Dental News"**
+  → Ordner **News** → Beitrag bearbeiten oder **+ Entry** (Typ `news`).
+- **Publish** = veröffentlicht. Danach muss die Seite neu gebaut/hochgeladen werden
+  (manuell `npm run build` + Upload, oder automatisch per Webhook → GitHub-Action).
+- Token: `STORYBLOK_TOKEN` (Public, read-only) in `.env` (lokal) bzw. als GitHub-Secret.
+  Astro liest die News beim Build über `src/lib/news.ts`.
+
+**Team** wird weiterhin als Markdown unter `src/content/team/` gepflegt
+(direkt auf github.com editierbar).
 
 ## Technik & Sicherheit
 

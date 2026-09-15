@@ -1,24 +1,24 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { renderRichText } from "@storyblok/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import NewsCard from "../../components/NewsCard.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../site";
+import { getNews, type NewsPost } from "../../lib/news";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("news", ({ data }) => !data.draft);
-  return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+  const posts = await getNews();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
 }
 
-interface Props { entry: CollectionEntry<"news"> }
-const { entry } = Astro.props;
-const { Content } = await entry.render();
-const { title, date, category, excerpt, cover, coverAlt } = entry.data;
+interface Props { post: NewsPost }
+const { post } = Astro.props;
+const { title, date, category, excerpt, cover, coverAlt } = post;
+const contentHtml = renderRichText(post.content);
 const dateStr = new Intl.DateTimeFormat("de-CH", { day: "2-digit", month: "long", year: "numeric" }).format(date);
 
-const related = (await getCollection("news", ({ data }) => !data.draft))
-  .filter((e) => e.slug !== entry.slug)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+const related = (await getNews())
+  .filter((e) => e.slug !== post.slug)
   .slice(0, 3);
 
 const articleSchema = {
@@ -51,9 +51,7 @@ const articleSchema = {
           <img src={cover} alt={coverAlt ?? title} />
         </figure>
       )}
-      <div class="prose" data-reveal data-delay="1">
-        <Content />
-      </div>
+      <div class="prose" data-reveal data-delay="1" set:html={contentHtml} />
     </div>
   </article>
 
@@ -62,7 +60,7 @@ const articleSchema = {
       <div class="container">
         <h2 class="related-title">Weitere News</h2>
         <div class="grid related-grid">
-          {related.map((e) => <NewsCard entry={e} />)}
+          {related.map((e) => <NewsCard post={e} />)}
         </div>
       </div>
     </section>
@@ -87,8 +85,10 @@ const articleSchema = {
   .prose :global(p) { margin-bottom: 1.3rem; font-size: 1.12rem; line-height: 1.75; color: var(--ink-700); }
   .prose :global(h2) { font-size: 1.6rem; margin: 2.5rem 0 1rem; }
   .prose :global(h3) { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
-  .prose :global(strong) { color: var(--accent-deep); }
-  .prose :global(em) { color: var(--ink-500); }
+  .prose :global(strong), .prose :global(b) { color: var(--accent-deep); font-weight: 700; }
+  .prose :global(em), .prose :global(i) { color: var(--ink-500); }
+  .prose :global(h2:first-child), .prose :global(p:first-child) { margin-top: 0; }
+  .prose :global(blockquote) { margin: 1.5rem 0; padding-left: 1.1rem; border-left: 3px solid var(--brand-300); color: var(--ink-600, var(--ink-700)); font-style: italic; }
   .prose :global(ul) { list-style: disc; padding-left: 1.4rem; margin-bottom: 1.3rem; }
   .prose :global(a) { color: var(--brand-600); text-decoration: underline; }
   .prose :global(img) { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin: 2rem 0; }
