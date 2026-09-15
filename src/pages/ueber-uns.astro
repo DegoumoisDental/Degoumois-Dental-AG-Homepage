@@ -8,6 +8,8 @@ const timeline = [
     year: "1972",
     title: "Gründung durch Georges Degoumois",
     text: "Mit der Gründung des Dentallabors in Solothurn legt Georges Degoumois den Grundstein für ein Unternehmen, das zahntechnisches Handwerk, Qualität und persönliche Zusammenarbeit miteinander verbindet.",
+    image: "/img/labor/georges-degoumois.jpg",
+    imageAlt: "Georges Degoumois, Gründer der Degoumois Dental AG",
   },
   {
     year: "2013",
@@ -125,6 +127,11 @@ const values = [
           <li class="tl-item" data-reveal data-delay={(i % 3) + 1}>
             <span class="tl-year">{t.year}</span>
             <div class="tl-card card">
+              {t.image && (
+                <div class="tl-portrait">
+                  <img src={t.image} alt={t.imageAlt} loading="lazy" decoding="async" />
+                </div>
+              )}
               <h3>{t.title}</h3>
               <p>{t.text}</p>
             </div>
@@ -179,6 +186,19 @@ const values = [
   .tl-card { padding: 1.75rem; flex: 1; }
   .tl-card h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
   .tl-card p { color: var(--ink-500); }
+
+  /* Gründer-Porträt (Schwarz-Weiss) */
+  .tl-portrait {
+    width: 104px; height: 104px; margin-bottom: 1.1rem;
+    border-radius: 50%; overflow: hidden;
+    border: 3px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--line), 0 10px 24px rgba(8, 41, 61, 0.16);
+  }
+  .tl-portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 20%;
+    filter: grayscale(1) contrast(1.03);
+  }
 
   .quote-band {
     position: relative; overflow: hidden;
