@@ -12,9 +12,9 @@ const dateStr = new Intl.DateTimeFormat("de-CH", { day: "2-digit", month: "long"
       {cover ? (
         <img src={cover} alt={coverAlt ?? title} loading="lazy" decoding="async" />
       ) : (
-        <div class="news-media-fallback" aria-hidden="true"><span>{category}</span></div>
+        <div class="news-media-fallback" aria-hidden="true">{category && <span>{category}</span>}</div>
       )}
-      <span class="news-badge">{category}</span>
+      {category && <span class="news-badge">{category}</span>}
     </div>
     <div class="news-body">
       <time datetime={date.toISOString()} class="news-date">{dateStr}</time>

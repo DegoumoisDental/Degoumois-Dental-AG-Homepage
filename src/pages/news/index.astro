@@ -5,7 +5,7 @@ import NewsCard from "../../components/NewsCard.astro";
 import { getNews } from "../../lib/news";
 
 const all = await getNews();
-const categories = ["Alle", ...new Set(all.map((e) => e.category))];
+const categories = ["Alle", ...new Set(all.map((e) => e.category).filter(Boolean))];
 ---
 
 <BaseLayout

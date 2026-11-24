@@ -27,7 +27,7 @@ export async function getNews(): Promise<NewsPost[]> {
         slug: s.slug as string,
         title: c.title as string,
         date: new Date(String(c.date || "").replace(" ", "T")),
-        category: c.category as string,
+        category: (c.category || "") as string,
         excerpt: c.excerpt as string,
         cover: c.cover?.filename || undefined,
         coverAlt: c.coverAlt || undefined,

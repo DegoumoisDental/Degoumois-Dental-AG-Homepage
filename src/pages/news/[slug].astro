@@ -27,7 +27,7 @@ const articleSchema = {
   headline: title,
   datePublished: date.toISOString(),
   description: excerpt,
-  articleSection: category,
+  ...(category ? { articleSection: category } : {}),
   author: { "@type": "Organization", name: site.name },
   publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: `${site.url}/img/logo-degoumois.svg` } },
 };
@@ -39,7 +39,7 @@ const articleSchema = {
       <div class="ah-bg" aria-hidden="true"></div>
       <div class="container ah-inner">
         <a href="/news" class="back-link"><Icon name="arrow" class="flip" /> Alle News</a>
-        <span class="ah-badge">{category}</span>
+        {category && <span class="ah-badge">{category}</span>}
         <h1 data-reveal>{title}</h1>
         <time datetime={date.toISOString()} class="ah-date" data-reveal data-delay="1">{dateStr}</time>
       </div>
